@@ -1,0 +1,43 @@
+<div class="page">
+        <div class="navbar">
+
+                <div class="navbar-inner">
+
+                        <div class="left"><a href="#" class="back_tables link"><i class="icon icon-back"></i></a></div>
+                        <div class="center sliding"><%= @order.dining_table.name_of %> 压桌单</div>
+                        <div class="right">
+                                <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"><i class="icon icon-bars-blue"></i></a>
+                                <span id="number_people" style="display:none;"><%= @order.quantity %></span>
+                        </div>
+                </div>
+	</div>
+	<br><br><br>	
+	<div class="data-table">
+<table>
+<thead>
+<tr>
+<th class="label-cell">Nom</th>
+<th class="numeric-cell">Quantité</th>
+<th class="numeric-cell">Montant</th>
+</tr>
+</thead>
+<tbody>
+	<% @order.order_items.each do |oi| %>
+<tr>
+	<td class="label-cell"><%= oi.item.label%></td>
+	<td class="numeric-cell"><%=oi.quantity%></td>
+	<td class="numeric-cell"><%=oi.item.amount * oi.quantity%></td>
+</tr>
+	<% end %>
+</tbody>
+</table>
+	</div>
+
+	<div class="block">
+<p class="row">
+<a href="<%=print_order_path(@order.id)%>" class="col button button-fill color-green">打印</a>
+<a href="<%=edit_dining_table_path(@order.dining_table_id)%>" class="col button button-fill color-red">修改</a>
+<a href="<%=finish_order_path(@order.id)%>" class="col button button-fill color-blue">完成</a>
+</p>
+</div>
+</div>

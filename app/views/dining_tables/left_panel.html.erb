@@ -1,0 +1,19 @@
+<div class="page">
+        <div class="page-content">
+          <div class="block-title">我的信息</div>
+          <div class="block">
+                  <div class="block block-strong">
+        <div class="chip">
+          <div class="chip-media bg-color-red">
+            <i class="icon f7-icons ios-only">person</i>
+            <i class="icon material-icons md-only">person</i>
+          </div>
+          <div class="chip-label"><%= current_user.try(:login)%></div>
+        </div>
+                  </div>
+                  <div class="chip color-red">
+                          <div class="chip-label"><a href="#" class="item-link list-button" onclick="app.methods.signOut()">退出系统</a></div>
+                  </div>
+          </div>
+        </div> <!-- page-content -->
+      </div> <!-- page -->

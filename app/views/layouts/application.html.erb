@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#2196f3">
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'phone', media: 'all' %>
+    <%= stylesheet_link_tag    'app', media: 'all'  %>
+    <%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
+    <link rel="apple-touch-icon" href="img/f7-icon-square.png">
+  <link rel="icon" href="img/f7-icon.png">
+</head>
+<body>
+	<div id="app">
+		<div class="statusbar"></div>
+		<div class="panel panel-left panel-cover">
+      <div class="page">
+        <div class="page-content">
+          <div class="block-title">我的信息</div>
+          <div class="block">
+                  <div class="block block-strong">
+        <div class="chip">
+          <div class="chip-media bg-color-red">
+            <i class="icon f7-icons ios-only">person</i>
+            <i class="icon material-icons md-only">person</i>
+          </div>
+	  <div class="chip-label"><%= current_user.try(:login)%></div>
+        </div>
+                  </div>
+                  <div class="chip color-red">
+			  <div class="chip-label"><a href="#" class="item-link list-button" onclick="app.methods.signOut()">退出系统</a></div>
+                  </div>
+          </div>
+        </div> <!-- page-content -->
+      </div> <!-- page -->
+</div> <!-- panel -->
+    <!-- Views -->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class -->
+      <div class="view view-main view-init" data-url="/">
+        <!-- Pages container, because we use fixed navbar and toolbar, it has additional appropriate classes-->
+           <%= yield %>
+      </div>
+    </div>
+  </div>
+    <!-- app -->
+  <%= javascript_include_tag 'phone' %>
+</body>
+</html>
+
