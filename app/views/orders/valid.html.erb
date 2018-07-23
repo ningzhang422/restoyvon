@@ -1,0 +1,50 @@
+<div class="page">
+        <div class="navbar" style="line-height:3;">
+
+
+			<center>确认单号 ：<%= @order.dining_table.name_of %></center>
+        </div>
+	<br><br><br>
+	<% if @order.is_valid || @order.uniqId != params[:uniqId]  %>
+		<div class="card">
+			<div class="card-content card-content-padding"><center><b style="font-size: 20px; color: #cc0000;">此单已经支付或不是当日压桌单，故不能扫描</b><br><a href="#" class="button button-raised" onclick="zhang.callCameraScan()">扫码</a></center><br><a href="#" class="button button-raised" onclick="app.router.navigate('/dining_tables', {reloadCurrent:true, ignoreCache:true});">大厅</a>
+			</div>
+		</div>
+
+	<% else %>
+		<div class="data-table" style="height: 400px; overflow:auto;">
+			<div class="card">
+				<div class="card-content card-content-padding"><center><b style="font-size: 20px; color: #cc0000;"><%= number_to_currency(@order.order_items.map(&:amount).sum, :unit => "€")%></b></center></div>
+			</div>
+			<table>
+			<thead>
+			<tr>
+			<th class="label-cell">Nom</th>
+			<th class="numeric-cell">Quantité</th>
+			<th class="numeric-cell">Montant</th>
+			</tr>
+			</thead>
+			<tbody>
+				<% @order.order_items.each do |oi| %>
+			<tr>
+				<td class="label-cell"><%= oi.item.label%></td>
+				<td class="numeric-cell"><%=oi.quantity%></td>
+				<td class="numeric-cell"><%=oi.item.amount * oi.quantity%></td>
+			</tr>
+				<% end %>
+			</tbody>
+			</table>
+		</div>
+
+		<div class="block">
+			<p class="row">
+				<a href="<%=cash_order_path(@order.id)%>" class="col button button-fill color-green">现金</a>
+				<a href="<%=cart_order_path(@order.id)%>" class="col button button-fill color-red">刷卡</a>
+				<a href="<%=ticket_order_path(@order.id)%>" class="col button button-fill color-blue">代金券</a>
+			</p>
+			<p class="row">
+                                <a href="<%=multiPay_order_path(@order.id)%>" class="col button button-fill color-blue">多方式支付</a>
+                        </p>
+		</div>
+	<% end %>
+</div>

@@ -9,9 +9,17 @@ var routes = [
     path: '/dining_tables',
     templateUrl: './dining_tables',
     on: {
-        pageInit: function (event, page) {
+	pageBeforeIn: function (event, page) {
           // do something before page gets into the view
-	  console.log("test");
+	  //console.log("test");
+	  $(".chinatown").on('click', function () {
+                //ac3.open();
+                //app.router.back("/dining_tables", {force:true});
+		view.router.navigate(view.router.currentRoute.url, {
+        ignoreCache  : true,
+        reloadCurrent : true
+    });
+          });
         },
      },
   },
@@ -486,6 +494,283 @@ var routes = [
     },
   },*/
   {
+          path: '/orders/:id/valid',
+          async: function(routeto, routefrom, resolve, reject) {
+            app.request(
+              {
+                url: routeto.url,
+                method: 'GET',
+                crossDomain: false,
+                statusCode: {
+                  404: function(xhr) {
+                    console.log('page not found');
+                  }
+                },
+                complete: function() {
+                  console.log('complete');
+                },
+                success: function(response) {
+			resolve(
+                          // How and what to load: template
+                                {
+                                        template: '{{res}}'
+                                },
+                          // Custom template context
+                                {
+                                        context: {
+                                                res: response,
+                                        },
+                                });
+                },
+                error: function(){
+                  console.log("error");
+                }
+              }
+            )
+          }
+  },
+  {
+          path: '/orders/:id/cart',
+          async: function(routeto, routefrom, resolve, reject) {
+            app.request(
+              {
+                url: routeto.url,
+                method: 'GET',
+                crossDomain: false,
+                statusCode: {
+                  404: function(xhr) {
+                    console.log('page not found');
+                  }
+                },
+                complete: function() {
+			app.toast.create({
+                                                text: '操作完成',
+                                                position: 'top',
+                                                closeTimeout: 2000,
+                                        }).open();
+                },
+                success: function(response) {
+			if(response !=""){
+				app.views.create('.view-main', {
+				  url: '/dining_tables'
+				});
+				$('.page-current').html('<br><br><div class="card"><div class="card-content card-content-padding"><center><b style="font-size: 20px; color: #cc0000;">此单已经支付</b><br><a href="#" class="button button-raised" onclick="zhang.callCameraScan()">扫码</a></center><br><a href="/dining_tables" data-force="true" data-view=".view-main" data-ignore-cache="true" class="back button button-raised">大厅</a></div></div>');
+				lee.printWithoutQR(response.split('|')[0],response.split('|')[1]);
+                        	zhang.callCameraScan();
+			}else{
+			app.toast.create({
+                                                text: '不可重复打印',
+                                                position: 'top',
+                                                closeTimeout: 2000,
+                                        }).open();
+			}
+                },
+                error: function(){
+                  console.log("error");
+                }
+              }
+            )
+          }
+  },
+  {
+          path: '/orders/:id/multiPayOk',
+          async: function(routeto, routefrom, resolve, reject) {
+            app.request(
+              {
+                url: routeto.url,
+                method: 'GET',
+                crossDomain: false,
+                statusCode: {
+                  404: function(xhr) {
+                    console.log('page not found');
+                  }
+                },
+                complete: function() {
+                },
+                success: function(response) {
+			if(response !=""){
+				app.views.create('.view-main', {
+                                  url: '/dining_tables'
+                                });
+				app.sheet.close();
+                                $('.page-current').html('<br><br><div class="card"><div class="card-content card-content-padding"><center><b style="font-size: 20px; color: #cc0000;">此单已经支付</b><br><a href="#" class="button button-raised" onclick="zhang.callCameraScan()">扫码</a></center><br><a href="/dining_tables" data-force="true" data-view=".view-main" data-ignore-cache="true" class="back button button-raised">大厅</a></div></div>');
+                                lee.printWithoutQR(response.split('|')[0],response.split('|')[1]);
+                                zhang.callCameraScan();
+			}else{
+			app.toast.create({
+                                                text: '不可重复打印',
+                                                position: 'top',
+                                                closeTimeout: 2000,
+                                        }).open();
+			}
+                },
+                error: function(){
+                  console.log("error");
+                }
+              }
+            )
+          }
+  },
+  {
+          path: '/orders/:id/multiPay',
+          async: function(routeto, routefrom, resolve, reject) {
+            app.request(
+              {
+                url: routeto.url,
+                method: 'GET',
+                crossDomain: false,
+                statusCode: {
+                  404: function(xhr) {
+                    console.log('page not found');
+                  }
+                },
+                complete: function() {
+			/*
+			app.toast.create({
+                                                text: '操作完成',
+                                                position: 'top',
+                                                closeTimeout: 2000,
+                                        }).open();*/
+                },
+                success: function(response) {
+			getval = function() {
+				if($("#restOfMoney").html() == ""){
+					return $("#amountTotal").html();
+				}else if($("#restOfMoney").html() == "0.00"){
+					return "";
+				}else{
+					return $("#restOfMoney").html();
+				}
+			};
+			calcul = function() {
+					var cash = $("#cash").val() == "" ? 0 : parseFloat($("#cash").val());
+					var cart = $("#cart").val() == "" ? 0 : parseFloat($("#cart").val());
+					var cheque = $("#cheque").val() == "" ? 0 : parseFloat($("#cheque").val());
+					var tkresto = $("#tkresto").val() == "" ? 0 : parseFloat($("#tkresto").val());
+					var others = $("#others").val() == "" ? 0 : parseFloat($("#others").val());
+					var amountTotal = parseFloat($("#amountTotal").html());
+
+					$("#restOfMoney").html((amountTotal - (cash+cart+cheque+tkresto+others).toFixed(2)).toFixed(2));
+					
+
+			      if((cash+cart+cheque+tkresto+others) != 0 && amountTotal- (cash+cart+cheque+tkresto+others) >= 0 ){ 
+					$("#but_link").html('<a href="/orders/'+$("#orderId").val()+'/multiPayOk?cash='+cash.toString().replace(".","-")+'&cart='+cart.toString().replace(".","-")+'&cheque='+cheque.toString().replace(".","-")+'&tkresto='+tkresto.toString().replace(".","-")+'&others='+others.toString().replace(".","-")+'" class="col button button-fill">确定</a>');
+				}else{
+					$("#but_link").html("");
+				}
+			    };
+			app.sheet.create({
+                                content: '<div class="sheet-modal" id="mysheet"><div class="toolbar"><div class="toolbar-inner justify-content-flex-end"><a href="#" class="link sheet-close">Close</a></div></div><div class="sheet-modal-inner"><div class="page-content"><div class="block" style="margin: -30px 0 0 0;">'+response+'</div></div></div></div>'
+                        }).open();
+                },
+                error: function(){
+                  console.log("error");
+                }
+              }
+            )
+          }
+  },
+  {
+          path: '/orders/:id/ticket',
+          async: function(routeto, routefrom, resolve, reject) {
+            app.request(
+              {
+                url: routeto.url,
+                method: 'GET',
+                crossDomain: false,
+                statusCode: {
+                  404: function(xhr) {
+                    console.log('page not found');
+                  }
+                },
+                complete: function() {
+			app.toast.create({
+                                                text: '操作完成',
+                                                position: 'top',
+                                                closeTimeout: 2000,
+                                        }).open();
+                },
+                success: function(response) {
+			if(response !=""){
+				app.views.create('.view-main', {
+                                  url: '/dining_tables'
+                                });
+                                $('.page-current').html('<br><br><div class="card"><div class="card-content card-content-padding"><center><b style="font-size: 20px; color: #cc0000;">此单已经支付</b><br><a href="#" class="button button-raised" onclick="zhang.callCameraScan()">扫码</a></center><br><a href="/dining_tables" data-force="true" data-view=".view-main" data-ignore-cache="true" class="back button button-raised">大厅</a></div></div>');
+				zhang.callCameraScan();
+			}else{
+			app.toast.create({
+                                                text: '不可重复打印',
+                                                position: 'top',
+                                                closeTimeout: 2000,
+                                        }).open();
+			}
+                },
+                error: function(){
+                  console.log("error");
+                }
+              }
+            )
+          },
+        on: {
+        pageBeforeIn: function (event, page) {
+          // do something before page gets into the view
+          $(".back_tables").on('click', function () {
+                app.router.navigate("/dining_tables", {reloadAll:true, ignoreCache:true});
+          });
+        }
+	}
+  },
+  {
+          path: '/orders/:id/cash',
+          async: function(routeto, routefrom, resolve, reject) {
+            app.request(
+              {
+                url: routeto.url,
+                method: 'GET',
+                crossDomain: false,
+                statusCode: {
+                  404: function(xhr) {
+                    console.log('page not found');
+                  }
+                },
+                complete: function() {
+			app.toast.create({
+                                                text: '操作完成',
+                                                position: 'top',
+                                                closeTimeout: 2000,
+                                        }).open();
+                },
+                success: function(response) {
+			if(response !=""){
+				app.views.create('.view-main', {
+                                  url: '/dining_tables'
+                                });
+                                $('.page-current').html('<br><br><div class="card"><div class="card-content card-content-padding"><center><b style="font-size: 20px; color: #cc0000;">此单已经支付</b><br><a href="#" class="button button-raised" onclick="zhang.callCameraScan()">扫码</a></center><br><a href="/dining_tables" data-force="true" data-view=".view-main" data-ignore-cache="true" class="back button button-raised">大厅</a></div></div>');
+				zhang.callCameraScan();
+			}else{
+			app.toast.create({
+                                                text: '不可重复打印',
+                                                position: 'top',
+                                                closeTimeout: 2000,
+                                        }).open();
+			}
+                },
+                error: function(){
+                  console.log("error");
+                }
+              }
+            )
+          },
+        on: {
+        pageBeforeIn: function (event, page) {
+          // do something before page gets into the view
+          $(".back_tables").on('click', function () {
+                app.router.navigate("/dining_tables", {reloadAll:true, ignoreCache:true});
+          });
+        }
+	}
+  },
+  {
           path: '/orders/:id/print',
           async: function(routeto, routefrom, resolve, reject) {
             app.request(
@@ -513,15 +798,7 @@ var routes = [
                                                 res: response,
                                         },
                                 });
-			if(response !=""){
-				lee.funAndroid(response.split('|')[0],response.split('|')[1]);
-			}else{
-			app.toast.create({
-                                                text: '不可重复打印',
-                                                position: 'top',
-                                                closeTimeout: 2000,
-                                        }).open();
-			}
+				lee.funAndroid(response.split('|')[0],response.split('|')[1], response.split('|')[2], response.split('|')[3]);
                 },
                 error: function(){
                   console.log("error");
@@ -642,6 +919,58 @@ var routes = [
                   console.log('complete');
                 },
                 success: function(response) {
+
+			getLink = function() {
+      if ($("#chooseNameTable").val() != "" && $("#chooseNbPeople").val() != ""){
+                $("#but_link").html('<a href="/dining_tables/'+$("#chooseNameTable").val()+'/orders/'+$("#chooseNbPeople").val()+'/new" class="col button button-fill">确定</a>');
+        }else{
+		$("#but_link").html("");
+	}
+    }
+
+			app.sheet.create({
+				content: '<div class="sheet-modal" id="mysheet"><div class="toolbar"><div class="toolbar-inner justify-content-flex-end"><a href="#" class="link sheet-close">Close</a></div></div><div class="sheet-modal-inner"><div class="page-content"><div class="block" style="margin: -30px 0 0 0;">'+response+'</div></div></div></div>'
+			}).open();
+                },
+                error: function(){
+                  console.log("error");
+                }
+              }
+            )
+     },
+	  on : {
+	  pageInit: function (event, page) {
+                ahandleAjaxSuccess = function(event) {
+                        ref = event.detail, data = ref[0], status = ref[1], xhr = ref[2];
+		  //console.log(ref);
+		  //console.log(data);
+		  //console.log(xhr);
+                }
+                	document.body.addEventListener('ajax:success', ahandleAjaxSuccess, false);
+        	}
+	  
+	  }
+  },
+  {
+	  path: '/dining_tables/:dining_table_id/orders/:id/new',
+          async: function(routeto, routefrom, resolve, reject) {
+            app.request(
+              { 
+                url: routeto.url,
+                method: 'GET',
+                crossDomain: false,
+                statusCode: {
+                  404: function(xhr) {
+                    console.log('page not found');
+                  }
+                },
+                complete: function() {
+                  console.log('complete');
+                },
+                success: function(response) {
+			app.sheet.close();
+			app.router.navigate(response, {reloadAll:true, ignoreCache:true});
+			/*
                         resolve(
                           // How and what to load: template
                                 {
@@ -652,481 +981,19 @@ var routes = [
                                         context: {
                                                 res: response,
                                         },
-                                });
+                                });*/
+
                 },
-                error: function(){
-                  console.log("error");
-                }
-              }
-            )
-          },
-	  on: {
-        pageBeforeIn: function (event, page) {
-          // do something before page gets into the view
-          $(".back_tables").on('click', function () {
-                //ac3.open();
-                app.router.navigate("/dining_tables", {reloadAll:true, ignoreCache:true});
-                //app.router.back("/dining_tables", {force:true});
-          });
-        },
-        pageAfterIn: function (event, page) {
-        // do something after page gets into the view
-        if(parseInt($("#number_people").html()) == 0){
-        app.dialog.create({
-          title: "<a href='#' class='link back'><i class='icon icon-back color-blue'></i></a><span style='margin-top: 3px; position: absolute; top: 21px;'>选择人数</span>",
-          buttons: [
-            {
-                    text: "<b><font style='font-size:16px;'>1</font></b>",
-                    onClick: function() {
-                       app.request(
-                               {
-                                 url: '/orders',
-                                 method: 'POST',
-                                 crossDomain: false,
-                                 data: {
-                                          "order[dining_table_id]": $("#diningtable").html().split(" ")[0],
-                                          "order[quantity]": 1 //,
-                                          // "authenticity_token":AUTH_TOKEN
-                                },
-                                statusCode: {
-                                        404: function(xhr) {
-                                                console.log('page not found');
-                                        }
-                                },
-                                complete: function() {
-                                        console.log('complete');
-                                },
-                                success: function(response) {
-                                        app.toast.create({
-                                                text: '订单生成',
+                error: function(response){
+			app.toast.create({
+                                                text: response.responseText,
                                                 position: 'top',
                                                 closeTimeout: 2000,
                                         }).open();
-                                        app.router.navigate("/dining_tables/"+$("#diningtable").html().split(" ")[0]+"/edit", {reloadCurrent:true, ignoreCache:true});
-                                },
-                                error: function(){
-                                        console.log("error");
-                                }
-                               }
-                       );
-                    }
-            },
-            {
-              text: "<b><font style='font-size:16px;'>2</font></b>",
-		    onClick: function() {
-                       app.request(
-			       {
-			         url: '/orders',
-				 method: 'POST',
-				 crossDomain: false,
-                                 data: {
-                 			  "order[dining_table_id]": $("#diningtable").html().split(" ")[0],
-                   			  "order[quantity]": 2,
-                   			  "authenticity_token":AUTH_TOKEN
-                   		},
-                		statusCode: {
-                  			404: function(xhr) {
-                    				console.log('page not found');
-                  			}
-                		},
-                		complete: function() {
-                  			console.log('complete');
-                		},
-                		success: function(response) {
-                  			app.toast.create({
-            					text: '订单生成',
-            					position: 'top',
-            					closeTimeout: 2000,
-          				}).open();
-					app.router.navigate("/dining_tables/"+$("#diningtable").html().split(" ")[0]+"/edit", {reloadCurrent:true, ignoreCache:true});
-                		},
-                		error: function(){
-                  			console.log("error");
-                		}
-			       }
-		       );
-		    }
-            },
-            {
-              text: "<b><font style='font-size:16px;'>3</font></b>",
-		    onClick: function() {
-                       app.request(
-			       {
-			         url: '/orders',
-				 method: 'POST',
-				 crossDomain: false,
-                                 data: {
-                 			  "order[dining_table_id]": $("#diningtable").html().split(" ")[0],
-                   			  "order[quantity]": 3,
-                   			  "authenticity_token":AUTH_TOKEN
-                   		},
-                		statusCode: {
-                  			404: function(xhr) {
-                    				console.log('page not found');
-                  			}
-                		},
-                		complete: function() {
-                  			console.log('complete');
-                		},
-                		success: function(response) {
-                  			app.toast.create({
-            					text: '订单生成',
-            					position: 'top',
-            					closeTimeout: 2000,
-          				}).open();
-					app.router.navigate("/dining_tables/"+$("#diningtable").html().split(" ")[0]+"/edit", {reloadCurrent:true, ignoreCache:true});
-                		},
-                		error: function(){
-                  			console.log("error");
-                		}
-			       }
-		       );
-		    }
-            },
-	    {
-              text: "<b><font style='font-size:16px;'>4</font></b>",
-		    onClick: function() {
-                       app.request(
-			       {
-			         url: '/orders',
-				 method: 'POST',
-				 crossDomain: false,
-                                 data: {
-                 			  "order[dining_table_id]": $("#diningtable").html().split(" ")[0],
-                   			  "order[quantity]": 4,
-                   			  "authenticity_token":AUTH_TOKEN
-                   		},
-                		statusCode: {
-                  			404: function(xhr) {
-                    				console.log('page not found');
-                  			}
-                		},
-                		complete: function() {
-                  			console.log('complete');
-                		},
-                		success: function(response) {
-                  			app.toast.create({
-            					text: '订单生成',
-            					position: 'top',
-            					closeTimeout: 2000,
-          				}).open();
-					app.router.navigate("/dining_tables/"+$("#diningtable").html().split(" ")[0]+"/edit", {reloadCurrent:true, ignoreCache:true});
-                		},
-                		error: function(){
-                  			console.log("error");
-                		}
-			       }
-		       );
-		    }
-            },
-            {
-              text: "<b><font style='font-size:16px;'>5</font></b>",
-		    onClick: function() {
-                       app.request(
-			       {
-			         url: '/orders',
-				 method: 'POST',
-				 crossDomain: false,
-                                 data: {
-                 			  "order[dining_table_id]": $("#diningtable").html().split(" ")[0],
-                   			  "order[quantity]": 5,
-                   			  "authenticity_token":AUTH_TOKEN
-                   		},
-                		statusCode: {
-                  			404: function(xhr) {
-                    				console.log('page not found');
-                  			}
-                		},
-                		complete: function() {
-                  			console.log('complete');
-                		},
-                		success: function(response) {
-                  			app.toast.create({
-            					text: '订单生成',
-            					position: 'top',
-            					closeTimeout: 2000,
-          				}).open();
-					app.router.navigate("/dining_tables/"+$("#diningtable").html().split(" ")[0]+"/edit", {reloadCurrent:true, ignoreCache:true});
-                		},
-                		error: function(){
-                  			console.log("error");
-                		}
-			       }
-		       );
-		    }
-            },
-            {
-              text: "<b><font style='font-size:16px;'>6</font></b>",
-		    onClick: function() {
-                       app.request(
-			       {
-			         url: '/orders',
-				 method: 'POST',
-				 crossDomain: false,
-                                 data: {
-                 			  "order[dining_table_id]": $("#diningtable").html().split(" ")[0],
-                   			  "order[quantity]": 6,
-                   			  "authenticity_token":AUTH_TOKEN
-                   		},
-                		statusCode: {
-                  			404: function(xhr) {
-                    				console.log('page not found');
-                  			}
-                		},
-                		complete: function() {
-                  			console.log('complete');
-                		},
-                		success: function(response) {
-                  			app.toast.create({
-            					text: '订单生成',
-            					position: 'top',
-            					closeTimeout: 2000,
-          				}).open();
-					app.router.navigate("/dining_tables/"+$("#diningtable").html().split(" ")[0]+"/edit", {reloadCurrent:true, ignoreCache:true});
-                		},
-                		error: function(){
-                  			console.log("error");
-                		}
-			       }
-		       );
-		    }
-            },
-	    {
-              text: "<b><font style='font-size:16px;'>7</font></b>",
-		    onClick: function() {
-                       app.request(
-			       {
-			         url: '/orders',
-				 method: 'POST',
-				 crossDomain: false,
-                                 data: {
-                 			  "order[dining_table_id]": $("#diningtable").html().split(" ")[0],
-                   			  "order[quantity]": 7,
-                   			  "authenticity_token":AUTH_TOKEN
-                   		},
-                		statusCode: {
-                  			404: function(xhr) {
-                    				console.log('page not found');
-                  			}
-                		},
-                		complete: function() {
-                  			console.log('complete');
-                		},
-                		success: function(response) {
-                  			app.toast.create({
-            					text: '订单生成',
-            					position: 'top',
-            					closeTimeout: 2000,
-          				}).open();
-					app.router.navigate("/dining_tables/"+$("#diningtable").html().split(" ")[0]+"/edit", {reloadCurrent:true, ignoreCache:true});
-                		},
-                		error: function(){
-                  			console.log("error");
-                		}
-			       }
-		       );
-		    }
-            },
-            {
-              text: "<b><font style='font-size:16px;'>8</font></b>",
-		    onClick: function() {
-                       app.request(
-			       {
-			         url: '/orders',
-				 method: 'POST',
-				 crossDomain: false,
-                                 data: {
-                 			  "order[dining_table_id]": $("#diningtable").html().split(" ")[0],
-                   			  "order[quantity]": 8,
-                   			  "authenticity_token":AUTH_TOKEN
-                   		},
-                		statusCode: {
-                  			404: function(xhr) {
-                    				console.log('page not found');
-                  			}
-                		},
-                		complete: function() {
-                  			console.log('complete');
-                		},
-                		success: function(response) {
-                  			app.toast.create({
-            					text: '订单生成',
-            					position: 'top',
-            					closeTimeout: 2000,
-          				}).open();
-					app.router.navigate("/dining_tables/"+$("#diningtable").html().split(" ")[0]+"/edit", {reloadCurrent:true, ignoreCache:true});
-                		},
-                		error: function(){
-                  			console.log("error");
-                		}
-			       }
-		       );
-		    }
-            },
-            {
-              text: "<b><font style='font-size:16px;'>9</font></b>",
-		    onClick: function() {
-                       app.request(
-			       {
-			         url: '/orders',
-				 method: 'POST',
-				 crossDomain: false,
-                                 data: {
-                 			  "order[dining_table_id]": $("#diningtable").html().split(" ")[0],
-                   			  "order[quantity]": 9,
-                   			  "authenticity_token":AUTH_TOKEN
-                   		},
-                		statusCode: {
-                  			404: function(xhr) {
-                    				console.log('page not found');
-                  			}
-                		},
-                		complete: function() {
-                  			console.log('complete');
-                		},
-                		success: function(response) {
-                  			app.toast.create({
-            					text: '订单生成',
-            					position: 'top',
-            					closeTimeout: 2000,
-          				}).open();app.router.navigate("/dining_tables/"+$("#diningtable").html().split(" ")[0]+"/edit", {reloadCurrent:true, ignoreCache:true});
-                		},
-                		error: function(){
-                  			console.log("error");
-                		}
-			       }
-		       );
-		    }
-            },
-	    {
-              text: "<b><font style='font-size:16px;'>10</font></b>",
-		    onClick: function() {
-                       app.request(
-			       {
-			         url: '/orders',
-				 method: 'POST',
-				 crossDomain: false,
-                                 data: {
-                 			  "order[dining_table_id]": $("#diningtable").html().split(" ")[0],
-                   			  "order[quantity]": 10,
-                   			  "authenticity_token":AUTH_TOKEN
-                   		},
-                		statusCode: {
-                  			404: function(xhr) {
-                    				console.log('page not found');
-                  			}
-                		},
-                		complete: function() {
-                  			console.log('complete');
-                		},
-                		success: function(response) {
-                  			app.toast.create({
-            					text: '订单生成',
-            					position: 'top',
-            					closeTimeout: 2000,
-          				}).open();
-					app.router.navigate("/dining_tables/"+$("#diningtable").html().split(" ")[0]+"/edit", {reloadCurrent:true, ignoreCache:true});
-                		},
-                		error: function(){
-                  			console.log("error");
-                		}
-			       }
-		       );
-		    }
-            },
-            {
-              text: "<b><font style='font-size:16px;'>11</font></b>",
-		    onClick: function() {
-                       app.request(
-			       {
-			         url: '/orders',
-				 method: 'POST',
-				 crossDomain: false,
-                                 data: {
-                 			  "order[dining_table_id]": $("#diningtable").html().split(" ")[0],
-                   			  "order[quantity]": 11,
-                   			  "authenticity_token":AUTH_TOKEN
-                   		},
-                		statusCode: {
-                  			404: function(xhr) {
-                    				console.log('page not found');
-                  			}
-                		},
-                		complete: function() {
-                  			console.log('complete');
-                		},
-                		success: function(response) {
-                  			app.toast.create({
-            					text: '订单生成',
-            					position: 'top',
-            					closeTimeout: 2000,
-          				}).open();
-					app.router.navigate("/dining_tables/"+$("#diningtable").html().split(" ")[0]+"/edit", {reloadCurrent:true, ignoreCache:true});
-                		},
-                		error: function(){
-                  			console.log("error");
-                		}
-			       }
-		       );
-		    }
-            },
-            {
-              text: "<b><font style='font-size:16px;'>12</font></b>",
-		    onClick: function() {
-                       app.request(
-			       {
-			         url: '/orders',
-				 method: 'POST',
-				 crossDomain: false,
-                                 data: {
-                 			  "order[dining_table_id]": $("#diningtable").html().split(" ")[0],
-                   			  "order[quantity]": 12,
-                   			  "authenticity_token":AUTH_TOKEN
-                   		},
-                		statusCode: {
-                  			404: function(xhr) {
-                    				console.log('page not found');
-                  			}
-                		},
-                		complete: function() {
-                  			console.log('complete');
-                		},
-                		success: function(response) {
-                  			app.toast.create({
-            					text: '订单生成',
-            					position: 'top',
-            					closeTimeout: 2000,
-          				}).open();
-					app.router.navigate("/dining_tables/"+$("#diningtable").html().split(" ")[0]+"/edit", {reloadCurrent:true, ignoreCache:true});
-                		},
-                		error: function(){
-                  			console.log("error");
-                		}
-			       }
-		       );
-		    }
-            },
-          ],
-          verticalButtons: true,
-        }).open();
-	}
-        },
-        pageInit: function (event, page) {
-		handleAjaxSuccess = function(event) {
-  			ref = event.detail, data = ref[0], status = ref[1], xhr = ref[2];
-			$("#items_choosen").html(data.htmltext);
-			$("#amount_updated").html(data.amount);
-		}
-		document.body.addEventListener('ajax:success', handleAjaxSuccess, false)
-		openAlert =  function () {
-        app.dialog.alert('Hello!');
-      }
-        },
-        pageBeforeRemove: function (event, page) {
-          // do something beofore page gets removed from DOM
-	  app.dialog.close();
-        },
-     },
+                }
+              }
+            )
+          }
   },
   {
 	  path: '/dining_tables/:id/edit',

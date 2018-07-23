@@ -10,7 +10,7 @@ class OrderItemsController < ApplicationController
 			@order.order_items.each do |io|
 				if io.quantity < 0
 				htmltext += "<div class='col-50 tablet-25'>
-				<div class='chip' style='padding:0 0 0 12px; background:#f4429e;'>
+				<div class='chip' style='padding:0 0 0 12px; background:#cc0000;'>
 					<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
 					<div class='chip-media bg-color-blue'>
 						<i class='icon material-icons md-only'>add_circle</i>
@@ -51,7 +51,7 @@ render json: {error: true}, status: 400
 				@order.order_items.each do |io|
                                 if io.quantity < 0
                                 htmltext += "<div class='col-50 tablet-25'>
-                                <div class='chip' style='padding:0 0 0 12px; background:#f4429e;'>
+                                <div class='chip' style='padding:0 0 0 12px; background:#cc0000;'>
                                         <a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
                                         <div class='chip-media bg-color-blue'>
                                                 <i class='icon material-icons md-only'>add_circle</i>
@@ -108,7 +108,7 @@ render json: {error: true}, status: 400
 			@order.order_items.each do |io|
 				if io.quantity < 0
 				htmltext += "<div class='col-50 tablet-25'>
-				<div class='chip' style='padding:0 0 0 12px; background:#f4429e;'>
+				<div class='chip' style='padding:0 0 0 12px; background:#cc0000;'>
 					<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
 					<div class='chip-media bg-color-blue'>
 						<i class='icon material-icons md-only'>add_circle</i>
@@ -216,7 +216,7 @@ render json: {error: true}, status: 400
 				@order.order_items.each do |io|
 					if io.quantity < 0
                         		htmltext += "<div class='col-50 tablet-25'>
-        				<div class='chip' style='padding:0 0 0 12px; background:#f4429e;'>
+        				<div class='chip' style='padding:0 0 0 12px; background:#cc0000;'>
 						<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
                 				<div class='chip-media bg-color-blue'>
 							<i class='icon material-icons md-only'>add_circle</i>
@@ -258,7 +258,7 @@ render json: {error: true}, status: 400
 				@order.order_items.each do |io|
 					if io.quantity < 0
                         		htmltext += "<div class='col-50 tablet-25'>
-        				<div class='chip' style='padding:0 0 0 12px; background:#f4429e;'>
+        				<div class='chip' style='padding:0 0 0 12px; background:#cc0000;'>
 						<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
                 				<div class='chip-media bg-color-blue'>
 							<i class='icon material-icons md-only'>add_circle</i>

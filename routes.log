@@ -1,61 +1,86 @@
-                      Prefix Verb   URI Pattern                                             Controller#Action
-            new_user_session GET    /users/sign_in(.:format)                                user_sessions#new
-                user_session POST   /users/sign_in(.:format)                                user_sessions#create
-        destroy_user_session DELETE /users/sign_out(.:format)                               user_sessions#destroy
-           new_user_password GET    /users/password/new(.:format)                           devise/passwords#new
-          edit_user_password GET    /users/password/edit(.:format)                          devise/passwords#edit
-               user_password PATCH  /users/password(.:format)                               devise/passwords#update
-                             PUT    /users/password(.:format)                               devise/passwords#update
-                             POST   /users/password(.:format)                               devise/passwords#create
-    cancel_user_registration GET    /users/cancel(.:format)                                 devise/registrations#cancel
-       new_user_registration GET    /users/sign_up(.:format)                                devise/registrations#new
-      edit_user_registration GET    /users/edit(.:format)                                   devise/registrations#edit
-           user_registration PATCH  /users(.:format)                                        devise/registrations#update
-                             PUT    /users(.:format)                                        devise/registrations#update
-                             DELETE /users(.:format)                                        devise/registrations#destroy
-                             POST   /users(.:format)                                        devise/registrations#create
-                             GET    /user_session/new(.:format)                             user_sessions#new
-           edit_user_session GET    /user_session/edit(.:format)                            user_sessions#edit
-                             GET    /user_session(.:format)                                 user_sessions#show
-                             PATCH  /user_session(.:format)                                 user_sessions#update
-                             PUT    /user_session(.:format)                                 user_sessions#update
-                             DELETE /user_session(.:format)                                 user_sessions#destroy
-                             POST   /user_session(.:format)                                 user_sessions#create
-                       users GET    /users(.:format)                                        users#index
-                             POST   /users(.:format)                                        users#create
-                    new_user GET    /users/new(.:format)                                    users#new
-                   edit_user GET    /users/:id/edit(.:format)                               users#edit
-                        user GET    /users/:id(.:format)                                    users#show
-                             PATCH  /users/:id(.:format)                                    users#update
-                             PUT    /users/:id(.:format)                                    users#update
-                             DELETE /users/:id(.:format)                                    users#destroy
-                       login GET    /login(.:format)                                        user_sessions#new
-                      logout GET    /logout(.:format)                                       user_sessions#destroy
-    left_panel_dining_tables GET    /dining_tables/left_panel(.:format)                     dining_tables#left_panel
-               dining_tables GET    /dining_tables(.:format)                                dining_tables#index
-                             POST   /dining_tables(.:format)                                dining_tables#create
-            new_dining_table GET    /dining_tables/new(.:format)                            dining_tables#new
-           edit_dining_table GET    /dining_tables/:id/edit(.:format)                       dining_tables#edit
-                dining_table GET    /dining_tables/:id(.:format)                            dining_tables#show
-                             PATCH  /dining_tables/:id(.:format)                            dining_tables#update
-                             PUT    /dining_tables/:id(.:format)                            dining_tables#update
-                             DELETE /dining_tables/:id(.:format)                            dining_tables#destroy
-   add_item_order_order_item GET    /orders/:order_id/order_items/:id/add_item(.:format)    order_items#add_item
-remove_item_order_order_item GET    /orders/:order_id/order_items/:id/remove_item(.:format) order_items#remove_item
-           order_order_items GET    /orders/:order_id/order_items(.:format)                 order_items#index
-                             POST   /orders/:order_id/order_items(.:format)                 order_items#create
-        new_order_order_item GET    /orders/:order_id/order_items/new(.:format)             order_items#new
-       edit_order_order_item GET    /orders/:order_id/order_items/:id/edit(.:format)        order_items#edit
-            order_order_item GET    /orders/:order_id/order_items/:id(.:format)             order_items#show
-                             PATCH  /orders/:order_id/order_items/:id(.:format)             order_items#update
-                             PUT    /orders/:order_id/order_items/:id(.:format)             order_items#update
-                             DELETE /orders/:order_id/order_items/:id(.:format)             order_items#destroy
-                      orders GET    /orders(.:format)                                       orders#index
-                             POST   /orders(.:format)                                       orders#create
-                   new_order GET    /orders/new(.:format)                                   orders#new
-                  edit_order GET    /orders/:id/edit(.:format)                              orders#edit
-                       order GET    /orders/:id(.:format)                                   orders#show
-                             PATCH  /orders/:id(.:format)                                   orders#update
-                             PUT    /orders/:id(.:format)                                   orders#update
-                             DELETE /orders/:id(.:format)                                   orders#destroy
-                        root GET    /                                                       dining_tables#index
+                       Prefix Verb   URI Pattern                                              Controller#Action
+                  rails_admin        /admin                                                   RailsAdmin::Engine
+             new_user_session GET    /users/sign_in(.:format)                                 user_sessions#new
+                 user_session POST   /users/sign_in(.:format)                                 user_sessions#create
+         destroy_user_session DELETE /users/sign_out(.:format)                                user_sessions#destroy
+            new_user_password GET    /users/password/new(.:format)                            devise/passwords#new
+           edit_user_password GET    /users/password/edit(.:format)                           devise/passwords#edit
+                user_password PATCH  /users/password(.:format)                                devise/passwords#update
+                              PUT    /users/password(.:format)                                devise/passwords#update
+                              POST   /users/password(.:format)                                devise/passwords#create
+     cancel_user_registration GET    /users/cancel(.:format)                                  devise/registrations#cancel
+        new_user_registration GET    /users/sign_up(.:format)                                 devise/registrations#new
+       edit_user_registration GET    /users/edit(.:format)                                    devise/registrations#edit
+            user_registration PATCH  /users(.:format)                                         devise/registrations#update
+                              PUT    /users(.:format)                                         devise/registrations#update
+                              DELETE /users(.:format)                                         devise/registrations#destroy
+                              POST   /users(.:format)                                         devise/registrations#create
+                              GET    /user_session/new(.:format)                              user_sessions#new
+            edit_user_session GET    /user_session/edit(.:format)                             user_sessions#edit
+                              GET    /user_session(.:format)                                  user_sessions#show
+                              PATCH  /user_session(.:format)                                  user_sessions#update
+                              PUT    /user_session(.:format)                                  user_sessions#update
+                              DELETE /user_session(.:format)                                  user_sessions#destroy
+                              POST   /user_session(.:format)                                  user_sessions#create
+                        users GET    /users(.:format)                                         users#index
+                              POST   /users(.:format)                                         users#create
+                     new_user GET    /users/new(.:format)                                     users#new
+                    edit_user GET    /users/:id/edit(.:format)                                users#edit
+                         user GET    /users/:id(.:format)                                     users#show
+                              PATCH  /users/:id(.:format)                                     users#update
+                              PUT    /users/:id(.:format)                                     users#update
+                              DELETE /users/:id(.:format)                                     users#destroy
+                        login GET    /login(.:format)                                         user_sessions#new
+                       logout GET    /logout(.:format)                                        user_sessions#destroy
+     left_panel_dining_tables GET    /dining_tables/left_panel(.:format)                      dining_tables#left_panel
+           dining_table_order GET    /dining_tables/:dining_table_id/order/:id/new(.:format)  order#new
+     dining_table_order_index GET    /dining_tables/:dining_table_id/order(.:format)          order#index
+                              POST   /dining_tables/:dining_table_id/order(.:format)          order#create
+       new_dining_table_order GET    /dining_tables/:dining_table_id/order/new(.:format)      order#new
+      edit_dining_table_order GET    /dining_tables/:dining_table_id/order/:id/edit(.:format) order#edit
+                              GET    /dining_tables/:dining_table_id/order/:id(.:format)      order#show
+                              PATCH  /dining_tables/:dining_table_id/order/:id(.:format)      order#update
+                              PUT    /dining_tables/:dining_table_id/order/:id(.:format)      order#update
+                              DELETE /dining_tables/:dining_table_id/order/:id(.:format)      order#destroy
+                dining_tables GET    /dining_tables(.:format)                                 dining_tables#index
+                              POST   /dining_tables(.:format)                                 dining_tables#create
+             new_dining_table GET    /dining_tables/new(.:format)                             dining_tables#new
+            edit_dining_table GET    /dining_tables/:id/edit(.:format)                        dining_tables#edit
+                 dining_table GET    /dining_tables/:id(.:format)                             dining_tables#show
+                              PATCH  /dining_tables/:id(.:format)                             dining_tables#update
+                              PUT    /dining_tables/:id(.:format)                             dining_tables#update
+                              DELETE /dining_tables/:id(.:format)                             dining_tables#destroy
+                 finish_order GET    /orders/:id/finish(.:format)                             orders#finish
+                  print_order GET    /orders/:id/print(.:format)                              orders#print
+    add_item_order_order_item GET    /orders/:order_id/order_items/:id/add_item(.:format)     order_items#add_item
+add_new_item_order_order_item GET    /orders/:order_id/order_items/:id/add_new_item(.:format) order_items#add_new_item
+ remove_item_order_order_item GET    /orders/:order_id/order_items/:id/remove_item(.:format)  order_items#remove_item
+            order_order_items GET    /orders/:order_id/order_items(.:format)                  order_items#index
+                              POST   /orders/:order_id/order_items(.:format)                  order_items#create
+         new_order_order_item GET    /orders/:order_id/order_items/new(.:format)              order_items#new
+        edit_order_order_item GET    /orders/:order_id/order_items/:id/edit(.:format)         order_items#edit
+             order_order_item GET    /orders/:order_id/order_items/:id(.:format)              order_items#show
+                              PATCH  /orders/:order_id/order_items/:id(.:format)              order_items#update
+                              PUT    /orders/:order_id/order_items/:id(.:format)              order_items#update
+                              DELETE /orders/:order_id/order_items/:id(.:format)              order_items#destroy
+                       orders GET    /orders(.:format)                                        orders#index
+                              POST   /orders(.:format)                                        orders#create
+                    new_order GET    /orders/new(.:format)                                    orders#new
+                   edit_order GET    /orders/:id/edit(.:format)                               orders#edit
+                        order GET    /orders/:id(.:format)                                    orders#show
+                              PATCH  /orders/:id(.:format)                                    orders#update
+                              PUT    /orders/:id(.:format)                                    orders#update
+                              DELETE /orders/:id(.:format)                                    orders#destroy
+                         root GET    /                                                        dining_tables#index
+
+Routes for RailsAdmin::Engine:
+  dashboard GET         /                                      rails_admin/main#dashboard
+      index GET|POST    /:model_name(.:format)                 rails_admin/main#index
+        new GET|POST    /:model_name/new(.:format)             rails_admin/main#new
+     export GET|POST    /:model_name/export(.:format)          rails_admin/main#export
+bulk_delete POST|DELETE /:model_name/bulk_delete(.:format)     rails_admin/main#bulk_delete
+bulk_action POST        /:model_name/bulk_action(.:format)     rails_admin/main#bulk_action
+       show GET         /:model_name/:id(.:format)             rails_admin/main#show
+       edit GET|PUT     /:model_name/:id/edit(.:format)        rails_admin/main#edit
+     delete GET|DELETE  /:model_name/:id/delete(.:format)      rails_admin/main#delete
+show_in_app GET         /:model_name/:id/show_in_app(.:format) rails_admin/main#show_in_app

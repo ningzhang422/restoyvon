@@ -12,7 +12,7 @@
                 </div>
 	</div>
 	<br><br><br>	
-	<div class="data-table" style="height: 490px; overflow:auto;">
+	<div class="data-table" style="height: 480px; overflow:auto;">
 <table>
 <thead>
 <tr>
@@ -35,9 +35,11 @@
 
 	<div class="block">
 <p class="row">
+<% if !@order.is_valid %>
 <a href="<%=print_order_path(@order.id)%>" class="col button button-fill color-green">打印</a>
 <a href="<%=edit_dining_table_path(@order.dining_table_id)%>" class="col button button-fill color-red">修改</a>
-<a href="<%=finish_order_path(@order.id)%>" class="col button button-fill color-blue">清台</a>
+<!-- <a href="<%finish_order_path(@order.id)%>" class="col button button-fill color-blue">清台</a> -->
+<% end %>
 </p>
 </div>
 </div>

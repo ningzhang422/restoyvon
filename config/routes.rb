@@ -12,11 +12,23 @@ Rails.application.routes.draw do
     collection do 
       get "left_panel"
     end
+    resources :orders do
+	    member do
+		    get "new"
+	    end
+    end
   end
   resources :orders do
     member do
 	   get "finish"
 	   get "print"
+	   get "valid"
+	   get "cart"
+	   get "ticket"
+	   get "cash"
+	   get "multiPay"
+	   get "multiPayOk"
+	   get "dining_tables"
     end 
     resources :order_items do
       member do

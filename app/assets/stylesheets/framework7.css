@@ -24247,3 +24247,7 @@ iframe#viAd {
   width:90px;
   text-align:center;
 }
+
+div.sheet-modal{
+  height: 640px;
+}
