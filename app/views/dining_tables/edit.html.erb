@@ -32,7 +32,7 @@
 		      <% Item.where(category_id: 0).each do |item| %>
 			<div class="col-50 tablet-25">
 				<div class="card demo-card-header-pic">
-					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw; background-image:url(/assets/<%=item.url%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
+					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw; background-image:url(<%=image_path(item.url)%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
 				</div>
 			</div>
 		      <% end %>
@@ -45,7 +45,7 @@
 		      <% Item.where(category_id: 1).each do |item| %>
 			<div class="col-50 tablet-25">
 				<div class="card demo-card-header-pic">
-					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw; background-image:url(/assets/<%=item.url%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
+					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw; background-image:url(<%=image_path(item.url)%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
 				</div>
 			</div>
 		      <% end %>
@@ -58,7 +58,7 @@
                       <% Item.where(category_id: 2).each do |item| %>
                         <div class="col-50 tablet-25">
                                 <div class="card demo-card-header-pic">
-					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(/assets/<%=item.url%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
+					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(<%=image_path(item.url)%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
                                 </div>
                         </div>
                       <% end %>
@@ -71,7 +71,7 @@
                       <% Item.where(category_id: 3).each do |item| %>
                         <div class="col-50 tablet-25">
                                 <div class="card demo-card-header-pic">
-					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(/assets/<%=item.url%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
+					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(<%=image_path(item.url)%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
                                 </div>
                         </div>
                       <% end %>
@@ -84,7 +84,7 @@
                       <% Item.where(category_id: 4).each do |item| %>
                         <div class="col-50 tablet-25">
                                 <div class="card demo-card-header-pic">
-					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(/assets/<%=item.url%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
+					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(<%=image_path(item.url)%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
                                 </div>
                         </div>
                       <% end %>
@@ -97,7 +97,7 @@
                       <% Item.where(category_id: 5).each do |item| %>
                         <div class="col-50 tablet-25">
                                 <div class="card demo-card-header-pic">
-					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(/assets/<%=item.url%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
+					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(<%=image_path(item.url)%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
                                 </div>
                         </div>
                       <% end %>
@@ -110,7 +110,7 @@
                       <% Item.where(category_id: 6).each do |item| %>
                         <div class="col-50 tablet-25">
                                 <div class="card demo-card-header-pic">
-					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(/assets/<%=item.url%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
+					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(<%=image_path(item.url)%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
                                 </div>
                         </div>
                       <% end %>
@@ -123,7 +123,7 @@
                       <% Item.where(category_id: 7).each do |item| %>
                         <div class="col-50 tablet-25">
                                 <div class="card demo-card-header-pic">
-					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(/assets/<%=item.url%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
+					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(<%=image_path(item.url)%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
                                 </div>
                         </div>
                       <% end %>
@@ -136,7 +136,7 @@
                       <% Item.where(category_id: 8).each do |item| %>
                         <div class="col-50 tablet-25">
                                 <div class="card demo-card-header-pic">
-					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(/assets/<%=item.url%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
+					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw;background-image:url(<%=image_path(item.url)%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
                                 </div>
                         </div>
                       <% end %>
