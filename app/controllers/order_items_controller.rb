@@ -16,7 +16,7 @@ class OrderItemsController < ApplicationController
 						<i class='icon material-icons md-only'>add_circle</i>
 					</div>
 					</a>
-					<div class='chip-label' style='width: 110px;'>#{io.item.label} x #{io.quantity}</div>
+					<div class='chip-label' style='width: 113px;'>#{io.item.label} <br><span class='badge color-red'> #{io.quantity}</span></div>
 					<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
 					<div class='chip-media bg-color-red'>
 						<i class='icon material-icons'>remove_circle</i>
@@ -32,7 +32,7 @@ class OrderItemsController < ApplicationController
 						<i class='icon material-icons md-only'>add_circle</i>
 					</div>
 					</a>
-					<div class='chip-label' style='width: 110px;'>#{io.item.label} x #{io.quantity}</div>
+					<div class='chip-label' style='width: 113px;'>#{io.item.label} <br><span class='badge color-red'> #{io.quantity}</span></div>
 					<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
 					<div class='chip-media bg-color-red'>
 						<i class='icon material-icons'>remove_circle</i>
@@ -57,7 +57,7 @@ render json: {error: true}, status: 400
                                                 <i class='icon material-icons md-only'>add_circle</i>
                                         </div>
                                         </a>
-                                        <div class='chip-label' style='width: 110px;'>#{io.item.label} x #{io.quantity}</div>
+                                        <div class='chip-label' style='width: 113px;'>#{io.item.label} <br><span class='badge color-red'> #{io.quantity}</span></div>
                                         <a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
                                         <div class='chip-media bg-color-red'>
                                                 <i class='icon material-icons'>remove_circle</i>
@@ -73,7 +73,7 @@ render json: {error: true}, status: 400
                                                 <i class='icon material-icons md-only'>add_circle</i>
                                         </div>
                                         </a>
-                                        <div class='chip-label' style='width: 110px;'>#{io.item.label} x #{io.quantity}</div>
+                                        <div class='chip-label' style='width: 113px;'>#{io.item.label} <br><span class='badge color-red'> #{io.quantity}</span></div>
                                         <a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
                                         <div class='chip-media bg-color-red'>
                                                 <i class='icon material-icons'>remove_circle</i>
@@ -114,7 +114,7 @@ render json: {error: true}, status: 400
 						<i class='icon material-icons md-only'>add_circle</i>
 					</div>
 					</a>
-					<div class='chip-label' style='width: 110px;'>#{io.item.label} x #{io.quantity}</div>
+					<div class='chip-label' style='width: 113px;'>#{io.item.label} <br><span class='badge color-red'> #{io.quantity}</span></div>
 					<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
 					<div class='chip-media bg-color-red'>
 						<i class='icon material-icons'>remove_circle</i>
@@ -130,7 +130,7 @@ render json: {error: true}, status: 400
 						<i class='icon material-icons md-only'>add_circle</i>
 					</div>
 					</a>
-					<div class='chip-label' style='width: 110px;'>#{io.item.label} x #{io.quantity}</div>
+					<div class='chip-label' style='width: 113px;'>#{io.item.label} <br><span class='badge color-red'> #{io.quantity}</span></div>
 					<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
 					<div class='chip-media bg-color-red'>
 						<i class='icon material-icons'>remove_circle</i>
@@ -155,7 +155,7 @@ render json: {error: true}, status: 400
 							<i class='icon material-icons md-only'>add_circle</i>
                                                 </div>
 						</a>
-                                                <div class='chip-label' style='width: 110px;'>#{io.item.label} x #{io.quantity}</div>
+                                                <div class='chip-label' style='width: 113px;'>#{io.item.label} <br><span class='badge color-red'> #{io.quantity}</span></div>
 						<a href='/orders/#{io.order_id}/order_items/#{io.item_id}/remove_item' data-remote='true'>
                                                 <div class='chip-media bg-color-red'>
 							<i class='icon material-icons'>remove_circle</i>
@@ -178,7 +178,7 @@ render json: {error: true}, status: 400
 							<i class='icon material-icons md-only'>add_circle</i>
                                                 </div>
 						</a>
-                                                <div class='chip-label' style='width: 110px;'>#{io.item.label} x #{io.quantity}</div>
+                                                <div class='chip-label' style='width: 113px;'>#{io.item.label} <br><span class='badge color-red'> #{io.quantity}</span></div>
 						<a href='/orders/#{io.order_id}/order_items/#{io.item_id}/remove_item' data-remote='true'>
                                                 <div class='chip-media bg-color-red'>
 							<i class='icon material-icons'>remove_circle</i>
@@ -222,7 +222,7 @@ render json: {error: true}, status: 400
 							<i class='icon material-icons md-only'>add_circle</i>
                 				</div>
 						</a>
-						<div class='chip-label' style='width: 110px;'>#{io.item.label} x #{io.quantity}</div>
+						<div class='chip-label' style='width: 113px;'>#{io.item.label} <br><span class='badge color-red'> #{io.quantity}</span></div>
 						<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
                 				<div class='chip-media bg-color-red'>
 							<i class='icon material-icons'>remove_circle</i>
@@ -239,7 +239,7 @@ render json: {error: true}, status: 400
 							<i class='icon material-icons md-only'>add_circle</i>
                 				</div>
 						</a>
-						<div class='chip-label' style='width: 110px;'>#{io.item.label} x #{io.quantity}</div>
+						<div class='chip-label' style='width: 113px;'>#{io.item.label} <br><span class='badge color-red'> #{io.quantity}</span></div>
 						<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
                 				<div class='chip-media bg-color-red'>
 							<i class='icon material-icons'>remove_circle</i>
@@ -264,7 +264,7 @@ render json: {error: true}, status: 400
 							<i class='icon material-icons md-only'>add_circle</i>
                 				</div>
 						</a>
-						<div class='chip-label' style='width: 110px;'>#{io.item.label} x #{io.quantity}</div>
+						<div class='chip-label' style='width: 113px;'>#{io.item.label} <br><span class='badge color-red'> #{io.quantity}</span></div>
 						<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
                 				<div class='chip-media bg-color-red'>
 							<i class='icon material-icons'>remove_circle</i>
@@ -281,7 +281,7 @@ render json: {error: true}, status: 400
 							<i class='icon material-icons md-only'>add_circle</i>
                 				</div>
 						</a>
-						<div class='chip-label' style='width: 110px;'>#{io.item.label} x #{io.quantity}</div>
+						<div class='chip-label' style='width: 113px;'>#{io.item.label} <br><span class='badge color-red'> #{io.quantity}</span></div>
 						<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
                 				<div class='chip-media bg-color-red'>
 							<i class='icon material-icons'>remove_circle</i>

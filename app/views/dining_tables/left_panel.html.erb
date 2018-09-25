@@ -13,7 +13,82 @@
                   </div>
                   <div class="chip color-red">
                           <div class="chip-label"><a href="#" class="item-link list-button" onclick="app.methods.signOut()">退出系统</a></div>
+		  </div>
+
+
+
+	  </div>
+
+		<% if current_user.try(:login) == "admin" %>
+		日期 ：<%= Date.today.to_s%>
+<div class="block">
+                        <div class="list no-hairlines-md" style="padding:0;margin:0;">
+                              <ul>
+                                <% if session[:show_cash] %>
+                                <li class="item-content item-input">
+                                  <div class="item-media">
+                                        <i class="material-icons">
+                                        euro_symbol
+                                        </i>
+                                        &nbsp;&nbsp; 现金 : <%= number_to_currency((Order.orders_today_cash_only + Order.orders_today_cash_multi), :unit => "€") %>
+                                  </div>
+                                </li>
+                                <% end %>
+                                <% if session[:show_cart] %>
+                                <li class="item-content item-input">
+                                  <div class="item-media">
+                                    <i class="material-icons">
+credit_card
+                                    </i>
+                                    &nbsp;&nbsp; 行卡 : <%= number_to_currency((Order.orders_today_cart_only + Order.orders_today_cart_multi), :unit => "€") %>
+                                  </div>
+                                </li>
+                        <% end %>
+                                <% if session[:show_cheque] %>
+                                <li class="item-content item-input">
+                                  <div class="item-media">
+                                  <i class="material-icons">
+picture_in_picture
+                                  </i>
+                                  &nbsp;&nbsp; 支票 : <%= number_to_currency((Order.orders_today_cheque_only + Order.orders_today_cheque_multi), :unit => "€") %>
+                                  </div>
+                                </li>
+                        <% end %>
+                                <% if session[:show_ticket] %>
+                                <li class="item-content item-input">
+                                  <div class="item-media">
+                                          <i class="material-icons">
+receipt
+                                          </i>
+                                          &nbsp;&nbsp; 饭票 : <%= number_to_currency((Order.orders_today_ticket_only + Order.orders_today_ticket_multi), :unit => "€") %>
+                                  </div>
+                                </li>
+                        <% end %>
+                                <% if session[:show_total] %>
+                                <li class="item-content item-input">
+                                  <div class="item-media">
+                                          <i class="material-icons">
+help_outline
+                                          </i>
+					  &nbsp;&nbsp; 金额 : <%= number_to_currency(Order.orders_today_encour.map{|l| l.try(:last_trace)}.map{|a| a.try(:amount)}.map(&:to_f).sum, :unit => "€") %>/<%= number_to_currency(Order.orders_today_all_amount, :unit => "€") %>
+                                  </div>
+                                </li>
+                        <% end %>
+                                <% if session[:show_total_people] %>
+                                <li class="item-content item-input">
+                                  <div class="item-media">
+                                          <i class="material-icons">
+help_outline
+                                          </i>
+                                          &nbsp;&nbsp; 人数 : <%= Order.orders_today_encour.map(&:quantity).sum %>/<%= Order.orders_today_all_people %>
+                                  </div>
+                                </li>
+                        <% end %>
+                              </ul>
+                            </div>
                   </div>
-          </div>
+
+		<% end %>
+
         </div> <!-- page-content -->
       </div> <!-- page -->

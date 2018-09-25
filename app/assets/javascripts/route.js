@@ -12,13 +12,19 @@ var routes = [
 	pageBeforeIn: function (event, page) {
           // do something before page gets into the view
 	  //console.log("test");
+
 	  $(".chinatown").on('click', function () {
                 //ac3.open();
                 //app.router.back("/dining_tables", {force:true});
-		view.router.navigate(view.router.currentRoute.url, {
-        ignoreCache  : true,
-        reloadCurrent : true
-    });
+		/*view.router.navigate(view.router.currentRoute.url, {
+			ignoreCache  : true,
+			reloadCurrent : true
+		    });*/
+		 // console.log(app);
+		 //app.router.navigate("/dining_tables", {reloadAll:true, ignoreCache:true});
+		 app.views.create('.view-main', {
+			 path: '/dining_tables'
+})
           });
         },
      },
@@ -671,6 +677,56 @@ var routes = [
           }
   },
   {
+          path: '/orders/:id/cheque',
+          async: function(routeto, routefrom, resolve, reject) {
+            app.request(
+              {
+                url: routeto.url,
+                method: 'GET',
+                crossDomain: false,
+                statusCode: {
+                  404: function(xhr) {
+                    console.log('page not found');
+                  }
+                },
+                complete: function() {
+			app.toast.create({
+                                                text: '操作完成',
+                                                position: 'top',
+                                                closeTimeout: 2000,
+                                        }).open();
+                },
+                success: function(response) {
+			if(response !=""){
+				app.views.create('.view-main', {
+                                  url: '/dining_tables'
+                                });
+                                $('.page-current').html('<br><br><div class="card"><div class="card-content card-content-padding"><center><b style="font-size: 20px; color: #cc0000;">此单已经支付</b><br><a href="#" class="button button-raised" onclick="zhang.callCameraScan()">扫码</a></center><br><a href="/dining_tables" data-force="true" data-view=".view-main" data-ignore-cache="true" class="back button button-raised">大厅</a></div></div>');
+				zhang.callCameraScan();
+			}else{
+			app.toast.create({
+                                                text: '不可重复打印',
+                                                position: 'top',
+                                                closeTimeout: 2000,
+                                        }).open();
+			}
+                },
+                error: function(){
+                  console.log("error");
+                }
+              }
+            )
+          },
+        on: {
+        pageBeforeIn: function (event, page) {
+          // do something before page gets into the view
+          $(".back_tables").on('click', function () {
+                app.router.navigate("/dining_tables", {reloadAll:true, ignoreCache:true});
+          });
+        }
+	}
+  },
+  {
           path: '/orders/:id/ticket',
           async: function(routeto, routefrom, resolve, reject) {
             app.request(
@@ -843,11 +899,19 @@ var routes = [
                                                 res: response,
                                         },
                                 });
-			app.toast.create({
+			if(response == "non"){
+				app.toast.create({
+                                                text: '此单已经打印，不可清除!',
+                                                position: 'top',
+                                                closeTimeout: 2000,
+                                        }).open();
+			}else{
+				        app.toast.create({
                                                 text: '清桌完成',
                                                 position: 'top',
                                                 closeTimeout: 2000,
                                         }).open();
+			}
                 },
                 error: function(){
                   console.log("error");

@@ -465,3 +465,21 @@ code {
 .theme-dark .demo-icon .demo-icon-name {
   color: #aaa;
 }
+div#items_choosen .chip-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  line-height: 13px;
+  text-align: center;
+  height: 30px;
+  font-size:10px;
+}
+
+div.sheet-modal{
+	height: 100%;
+}

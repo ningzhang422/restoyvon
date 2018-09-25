@@ -19,7 +19,7 @@ euro_symbol
 				  </div>
 				  <div class="item-inner">
 				    <div class="item-input-wrap">
-					    <input type="number" id="cash" placeholder="现金" onfocus="if(this.value == ''){this.value = getval()}" onblur="calcul()">
+					    <input type="number" id="cash" placeholder="现金" onfocus="if((this.value == '' && $('#cart').val() == '' && $('#cheque').val() == '' && $('#tkresto').val() == '' && $('#others').val() == '')){}else{this.value = getval()}" onblur="calcul()">
 				      <span class="input-clear-button" onclick="calcul()"></span>
 				    </div>
 				  </div>
@@ -32,7 +32,7 @@ credit_card
 				  </div>
 				  <div class="item-inner">
 				    <div class="item-input-wrap">
-				      <input type="number" id="cart" placeholder="银行卡" onfocus="if(this.value == ''){this.value = getval()}" onblur="calcul()">
+					    <input type="number" id="cart" placeholder="银行卡" onfocus="if((this.value == '' && $('#cash').val() == '' && $('#cheque').val() == '' && $('#tkresto').val() == '' && $('#others').val() == '')){}else{this.value = getval()}" onblur="calcul()">
 				      <span class="input-clear-button" onclick="calcul()"></span>
 				    </div>
 				  </div>
@@ -45,7 +45,7 @@ picture_in_picture
 				  </div>
 				  <div class="item-inner">
 				    <div class="item-input-wrap">
-				      <input type="number" id="cheque" placeholder="支票" onfocus="if(this.value == ''){this.value = getval()}" onblur="calcul()">
+					    <input type="number" id="cheque" placeholder="支票" onfocus="if((this.value == '' && $('#cart').val() == '' && $('#cash').val() == '' && $('#tkresto').val() == '' && $('#others').val() == '')){}else{this.value = getval()}" onblur="calcul()">
 				      <span class="input-clear-button" onclick="calcul()"></span>
 				    </div>
 				  </div>
@@ -58,7 +58,7 @@ receipt
 				  </div>
 				  <div class="item-inner">
 				    <div class="item-input-wrap">
-				      <input type="number" id="tkresto" placeholder="饭票" onfocus="if(this.value == ''){this.value = getval()}" onblur="calcul()">
+					    <input type="number" id="tkresto" placeholder="饭票" onfocus="if((this.value == '' && $('#cart').val() == '' && $('#cheque').val() == '' && $('#cash').val() == '' && $('#others').val() == '')){}else{this.value = getval()}" onblur="calcul()">
 				      <span class="input-clear-button" onclick="calcul()"></span>
 				    </div>
 				  </div>
@@ -71,7 +71,7 @@ help_outline
 				  </div>
 				  <div class="item-inner">
 				    <div class="item-input-wrap">
-				      <input type="number" id="others" placeholder="其他" onfocus="if(this.value == ''){this.value = getval()}" onblur="calcul()">
+					    <input type="number" id="others" placeholder="其他" onfocus="if((this.value == '' && $('#cart').val() == '' && $('#cheque').val() == '' && $('#tkresto').val() == '' && $('#cash').val() == '')){}else{this.value = getval()}" onblur="calcul()">
 				      <span class="input-clear-button" onclick="calcul()"></span>
 				    </div>
 				  </div>

@@ -25,10 +25,12 @@ Rails.application.routes.draw do
 	   get "valid"
 	   get "cart"
 	   get "ticket"
+	   get "cheque"
 	   get "cash"
 	   get "multiPay"
 	   get "multiPayOk"
 	   get "dining_tables"
+	   get "login"
     end 
     resources :order_items do
       member do

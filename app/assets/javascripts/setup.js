@@ -61,8 +61,10 @@ var app = new Framework7({
     },
     signOut: function () {
 	    app.panel.close();
-	    app.request.get('/logout', { foo:'bar', id:5 }, function (data) {
+	    app.request.get('/logout', { foo:'bar', id:5 }, function (data, status, xhr) {
 		    app.router.navigate("/login", {reloadCurrent:true, ignoreCache:true});
+                  }, function (data, status, xhr) {
+                    app.router.navigate("/login", {reloadCurrent:true, ignoreCache:true});
                   });
     },
   },

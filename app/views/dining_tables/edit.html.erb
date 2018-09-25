@@ -24,7 +24,7 @@
       <a href="#tab-8" class="tab-link">Champagne</a>
     </div>
   </div>
-  <div class="tabs-swipeable-wrap" style="height:390px;">
+  <div class="tabs-swipeable-wrap" style="height:390px; width: 100%;">
     <div class="tabs">
       <div id="tab-0" class="page-content tab tab-active">
 	<div class="block" style="margin: 10px 0;">
@@ -148,7 +148,7 @@
   <div class="md color-theme-blue" style="background:#2196f3; height:26px;line-height:2;padding:0 8px;">
 	  <span style="float:left; color:#ffffff;">我的订单</span><span style="float:right;color:#FFFFFF;">总额: <b id="amount_updated"><%= number_to_currency(@montant, :unit => "€") %></b></span> 
   </div>
-  <div class="block" style="margin: 5px 0;overflow: auto;height: 160px;">
+  <div class="block" style="margin: 5px 0;overflow: auto;height: 160px;width:100%;">
 	  <div class="row" id="items_choosen">
 		  <% unless @table.active_order.blank? %>
 			  <% @table.active_order.order_items.each do |oi| %>
@@ -160,7 +160,7 @@
                                                         <i class="icon material-icons md-only">add_circle</i>
                                                 </div>
                                                 </a>
-                                                <div class="chip-label" style="width: 110px;"><%= oi.item.label %> x <%= oi.quantity %></div>
+						<div class="chip-label" style="width: 113px;"><%= oi.item.label %> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
                                                 <a href=<%="/orders/#{oi.order_id}/order_items/#{oi.id}/remove_item"%> data-remote="true">
                                                 <div class="chip-media bg-color-red">
                                                         <i class="icon material-icons">remove_circle</i>
@@ -176,7 +176,7 @@
 							<i class="icon material-icons md-only">add_circle</i>
 						</div>
 						</a>
-						<div class="chip-label" style="width: 110px;"><%= oi.item.label %> x <%= oi.quantity %></div>
+						<div class="chip-label" style="width: 113px;"><%= oi.item.label %> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
 						<a href=<%="/orders/#{oi.order_id}/order_items/#{oi.id}/remove_item"%> data-remote="true">
                 				<div class="chip-media bg-color-red">
 							<i class="icon material-icons">remove_circle</i>

@@ -7,7 +7,7 @@
                 <i class="icon material-icons md-only">menu</i>
               </a>
             </div>
-	    <div class="title sliding"><a href="#" class="chinatown">中国城中餐自助</a></div>
+	    <div class="title sliding">中国城中餐自助</div>
             <div class="right">
               <a class="link icon-only searchbar-enable" data-searchbar=".searchbar-components">
                 <i class="icon f7-icons ios-only">search_strong</i>
@@ -30,11 +30,14 @@
 		<a href="#" class="button button-raised" onclick="zhang.callCameraScan()">扫码</a>
 	  <div class="block-title searchbar-found">请点击加号添加餐桌 ：</div>
           <div class="list components-list searchbar-found">
-		  <ul class="actions-grid">
-			<div class="actions-group">
-		    <% @dining_tables.each do |dt| %>
-					  <div class="actions-button">
-						<li class="actions-button-text" style="height:auto;">
+				<ul class="actions-group actions-grid">
+                                                <li class="actions-button actions-button-text" style="height:auto; float:left;">
+							<div class="actions-button-media" style="width:auto;">
+								<a href="<%=new_dining_table_path%>" class="item-content item-link" style="padding:0;"><img src="/assets/kekong_new.jpg" width="90"></a>
+                                                        </div>
+                                                </li>
+		    	<% @dining_tables.each do |dt| %>
+						<li class="actions-button actions-button-text" style="height:auto; float:left;">
 							<div class="actions-button-media" style="width:auto;">
 								<% if dt.active_order.encour %>
 									<a href="<%=order_path(dt.current_order_id)%>" class="item-content item-link" style="padding:0;"><img src="/assets/keman.jpg" width="90"></a>
@@ -42,19 +45,14 @@
 									<a href="<%=edit_dining_table_path(dt)%>" class="item-content item-link" style="padding:0;"><img src="/assets/keman.jpg" width="90"></a>
 								<% end %>
 							</div>
-					    		<%= link_to raw("<div class='item-inner' style='padding:none;'><div class='item-title'>#{dt.name_of}</div></div>"), edit_dining_table_path(dt), {class: "item-content item-link", style: "background;none"}  %>
+							<% if dt.active_order.encour %>
+								<%= link_to raw("<div class='item-inner' style='padding:none;'><div class='item-title'>#{dt.name_of}</div></div>"), order_path(dt.current_order_id), {class: "item-content item-link", style: "background;none"}  %>
+							<% else %>
+								<%= link_to raw("<div class='item-inner' style='padding:none;'><div class='item-title'>#{dt.name_of}</div></div>"), edit_dining_table_path(dt), {class: "item-content item-link", style: "background;none"}  %>
+							<% end %>
 						</li>
-					  </div>
 			  <% end %>
-			  <div class="actions-button">
-                                                <li class="actions-button-text" style="height:auto;">
-							<div class="actions-button-media" style="width:auto;">
-								<a href="<%=new_dining_table_path%>" class="item-content item-link" style="padding:0;"><img src="/assets/kekong_new.jpg" width="90"></a>
-                                                        </div>
-                                                </li>
-                                          </div>
-			</div>
-            	</ul>
+				</ul>
            </div>
         </div>
 </div>
