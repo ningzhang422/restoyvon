@@ -1032,8 +1032,9 @@ var routes = [
                   console.log('complete');
                 },
                 success: function(response) {
-			app.sheet.close();
+			//app.sheet.close();
 			app.router.navigate(response, {reloadAll:true, ignoreCache:true});
+			app.sheet.close();
 			/*
                         resolve(
                           // How and what to load: template

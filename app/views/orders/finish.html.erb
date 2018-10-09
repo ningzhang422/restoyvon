@@ -27,15 +27,9 @@
           </div>
         </div>
         <div class="page-content">
-		<a href="#" class="button button-raised" onclick="zhang.callCameraScan()">扫码</a>
 	  <div class="block-title searchbar-found">请点击加号添加餐桌 ：</div>
           <div class="list components-list searchbar-found">
 		  		<ul class="actions-group actions-grid">
-                                                <li class="actions-button actions-button-text" style="height:auto;float:left;">
-                                                        <div class="actions-button-media" style="width:auto;">
-                                                                <a href="<%=new_dining_table_path%>" class="item-content item-link" style="padding:0;"><img src="/assets/kekong_new.jpg" width="90"></a>
-                                                        </div>
-                                                </li>
                     <% @dining_tables.each do |dt| %>
                                                 <li class="actions-button actions-button-text" style="height:auto;float:left;">
                                                         <div class="actions-button-media" style="width:auto;">
@@ -54,7 +48,18 @@
                           <% end %>
                 </ul>
            </div>
+	</div>
+
+	<div class="fab fab-right-bottom">
+            <a href="<%=new_dining_table_path%>" class="item-content item-link">
+              <i class="icon material-icons md-only">add</i>
+            </a>
         </div>
+        <div class="fab fab-left-bottom">
+            <a href="#" class="item-content item-link"  onclick="zhang.callCameraScan()">
+              <i class="icon material-icons md-only">crop_free</i>
+            </a>
+          </div>
 </div>
 	<script>
 /*
