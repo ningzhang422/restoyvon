@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
 	belongs_to :dining_table
-	has_many :order_items
-	has_many :order_histories
+	has_many :order_items, dependent: :destroy
+	has_many :order_histories, dependent: :destroy
 
 	def last_trace
 		order_histories.order('created_at desc').first	
@@ -12,15 +12,15 @@ class Order < ApplicationRecord
 	end
 
 	def self.orders_today_all_amount
-		self.where("date(created_at) = '#{Date.today.to_s}'").map{|a| a.try(:last_trace)}.map{|a| a.try(:amount)}.map(&:to_f).sum
+		self.where("date(created_at) = '#{Date.today.to_s}' and (comments is null or comments != 'cancel')").map{|a| a.try(:last_trace)}.map{|a| a.try(:amount)}.map(&:to_f).sum
 	end
 
 	def self.orders_today_all_people
-		self.where("date(created_at) = '#{Date.today.to_s}'").map(&:quantity).sum
+		self.where("date(created_at) = '#{Date.today.to_s}' and (comments is null or comments != 'cancel')").map(&:quantity).sum
 	end
 
 	def self.orders_today_encour
-                self.where("date(created_at) = '#{Date.today.to_s}'").where("is_valid is false")
+                self.where("date(created_at) = '#{Date.today.to_s}' and (comments is null or comments != 'cancel')").where("is_valid is false")
         end
 
 

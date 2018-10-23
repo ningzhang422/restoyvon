@@ -38,13 +38,13 @@
 
 		<div class="block">
 			<p class="row">
-				<a href="<%=cash_order_path(@order.id)%>" class="col button button-fill color-green">现金</a>
-				<a href="<%=cart_order_path(@order.id)%>" class="col button button-fill color-red">刷卡</a>
-				<a href="<%=ticket_order_path(@order.id)%>" class="col button button-fill color-blue">代金券</a>
+				<a href="<%=cash_order_path(@order.id)%>" class="col button button-fill color-green open-confirm">现金</a>
+				<a href="<%=cart_order_path(@order.id)%>" class="col button button-fill color-red open-confirm">刷卡</a>
+				<a href="<%=ticket_order_path(@order.id)%>" class="col button button-fill color-blue open-confirm">饭票(c.v)</a>
 			</p>
 			<p class="row">
-				<a href="<%=cheque_order_path(@order.id)%>" class="col button button-fill color-blue">支票</a>
-                                <a href="<%=multiPay_order_path(@order.id)%>" class="col button button-fill color-blue">多方式支付</a>
+				<a href="<%=cheque_order_path(@order.id)%>" class="col button button-fill color-blue open-confirm">支票</a>
+                                <a href="<%=multiPay_order_path(@order.id)%>" class="col button button-fill color-blue open-confirm">多方式支付</a>
                         </p>
 		</div>
 	<% end %>

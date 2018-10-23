@@ -1,0 +1,3 @@
+<% if @htmltext == "ok" %>
+		$("#item_<%=@item.id%>").html("<div class='chip' style='padding:0 0 0 12px; background-color: #ffffff;'><a href='/items/<%=@item.id%>/add_item' data-remote='true'> <div class='chip-media bg-color-blue'> <i class='icon material-icons md-only'>add_circle</i></div> </a><div class='chip-label' style='width: 170px;'><img src='<%=image_path(@item.url)%>' style='width:30px; float:left;'><%=@item.label%> <br><span class='badge color-red'> <%=@item.sold_number%></span> <span class='badge color-red'><%=@item.amount%></span></div> <a href='/items/<%=@item.id%>/remove_item' data-remote='true'><div class='chip-media bg-color-red'><i class='icon material-icons'>remove_circle</i></div></a></div>");
+<% end %>

@@ -24,7 +24,7 @@
       <a href="#tab-8" class="tab-link">Champagne</a>
     </div>
   </div>
-  <div class="tabs-swipeable-wrap" style="height:390px; width: 100%;">
+  <div class="tabs-swipeable-wrap" style="height:350px; width: 100%;">
     <div class="tabs">
       <div id="tab-0" class="page-content tab tab-active">
 	<div class="block" style="margin: 10px 0;">
@@ -189,10 +189,11 @@
 		  <% end %>
 	</div>
   </div>
-     <div>
+     <div  class="block">
 	  <p class="row">
 	  <% unless @table.active_order.blank? %>
 		  <a href="<%=order_path(@table.active_order.id)%>" class="item-content item-link col button button-raised">确认并下单</a>
+	  	  <a href="<%=finish_order_path(@table.active_order.id)%>" class="col button button-fill color-blue">清台</a>
 	  <% end %>
         </p>
      </div>

@@ -538,6 +538,7 @@ var routes = [
   {
           path: '/orders/:id/cart',
           async: function(routeto, routefrom, resolve, reject) {
+		  app.dialog.confirm("刷卡支付？","注意",function(){
             app.request(
               {
                 url: routeto.url,
@@ -575,7 +576,8 @@ var routes = [
                   console.log("error");
                 }
               }
-            )
+            );
+		  });
           }
   },
   {
@@ -620,6 +622,7 @@ var routes = [
   {
           path: '/orders/:id/multiPay',
           async: function(routeto, routefrom, resolve, reject) {
+		  
             app.request(
               {
                 url: routeto.url,
@@ -631,8 +634,7 @@ var routes = [
                   }
                 },
                 complete: function() {
-			/*
-			app.toast.create({
+/*			app.toast.create({
                                                 text: '操作完成',
                                                 position: 'top',
                                                 closeTimeout: 2000,
@@ -679,6 +681,7 @@ var routes = [
   {
           path: '/orders/:id/cheque',
           async: function(routeto, routefrom, resolve, reject) {
+		  app.dialog.confirm("支票支付？","注意",function(){
             app.request(
               {
                 url: routeto.url,
@@ -715,7 +718,8 @@ var routes = [
                   console.log("error");
                 }
               }
-            )
+            );
+		  });
           },
         on: {
         pageBeforeIn: function (event, page) {
@@ -729,6 +733,7 @@ var routes = [
   {
           path: '/orders/:id/ticket',
           async: function(routeto, routefrom, resolve, reject) {
+		  app.dialog.confirm("饭票或c.v.支付？","注意",function(){
             app.request(
               {
                 url: routeto.url,
@@ -765,7 +770,8 @@ var routes = [
                   console.log("error");
                 }
               }
-            )
+            );
+		  });
           },
         on: {
         pageBeforeIn: function (event, page) {
@@ -779,6 +785,7 @@ var routes = [
   {
           path: '/orders/:id/cash',
           async: function(routeto, routefrom, resolve, reject) {
+		  app.dialog.confirm("现金支付？","注意",function(){
             app.request(
               {
                 url: routeto.url,
@@ -815,7 +822,8 @@ var routes = [
                   console.log("error");
                 }
               }
-            )
+            );
+	  });
           },
         on: {
         pageBeforeIn: function (event, page) {

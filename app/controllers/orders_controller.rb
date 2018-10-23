@@ -43,9 +43,10 @@ class OrdersController < ApplicationController
 			end
 		end
 	  end
-@order.encour = 1
-@order.save
-
+	@order.encour = 1
+	@order.save
+	#detail = "\nTable : #{@order.dining_table.name_of}, Service : #{current_user.login},    Date : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n_______________________________\n#{@order.order_items.map{|oi| "#{oi.item.label} X #{oi.quantity}" }.join("\n")}|#{request.base_url}|#{@order.id}|#{@order.uniqId}"
+        #render plain: detail, status: 200
   end
 
   def dining_tables
@@ -60,8 +61,6 @@ class OrdersController < ApplicationController
     	amount = @order.order_items.map(&:amount).sum
         detail = @order.order_items.map(&:detail).join(";")
         OrderHistory.create({:order_id => @order.id, :amount => amount, :detail => detail, :uniqId => uniqId, :printable => 1})
-                #@order.uniqId = uniqId
-                #@order.save
     else
 
 	last_order_history = @order.order_histories.order(:created_at).try(:last)
@@ -73,29 +72,18 @@ class OrdersController < ApplicationController
     @order.uniqId = uniqId
     @order.save
 
-=begin
-	    if @order.order_histories.length > 1 && (@order.order_histories - last_order_history).map(&:amount).include?(last_order_history.amount)
-		    render plain: '', status: 200
-	    else
-	    detail = "\nTable : #{@order.dining_table.name_of}, Service : #{current_user.login},    Date : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n_______________________________\n#{@order.order_items.map{|oi| "#{oi.item.label} X #{oi.quantity}" }.join("\n")}|#{request.base_url}/orders/#{@order.id}/valid"
-	    render plain: detail, status: 200
-	    last_order_history.printable = 0
-	    last_order_history.save
-	    end
-=end
-	detail = "\nTable : #{@order.dining_table.name_of}, Service : #{current_user.login},    Date : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n_______________________________\n#{@order.order_items.map{|oi| "#{oi.item.label} X #{oi.quantity}" }.join("\n")}|#{request.base_url}|#{@order.id}|#{@order.uniqId}"
-            render plain: detail, status: 200
-            #last_order_history.printable = 0
-	    #last_order_history.save
+    detail = "\nTable : #{@order.dining_table.name_of}, Service : #{current_user.login},    Date : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n_______________________________\n#{@order.order_items.order("line_id asc").map{|oi| "#{oi.item.label} X #{oi.quantity}" }.join("\n")}|#{request.base_url}|#{@order.id}|#{@order.uniqId}"
+        render plain: detail, status: 200
   end
 
   def finish
 	  @order = Order.find(params[:id])
-	  if @order.order_histories.order(:created_at).try(:last).printable == 0
-	  @order.encour = 0
-	  @order.save
-	  @order.dining_table.update_attributes({current_order_id: nil})
-	  @dining_tables = DiningTable.where("current_order_id is not null and (select is_valid from orders where id = current_order_id) is false")
+	  if @order.order_histories.size == 0 || @order.order_histories.order(:created_at).try(:last).printable == 0
+		  @order.encour = 0
+		  @order.comments = "cancel"
+		  @order.save
+		  @order.dining_table.update_attributes({current_order_id: nil})
+		  @dining_tables = DiningTable.where("current_order_id is not null and (select is_valid from orders where id = current_order_id) is false")
 	  else
 		render plain: "non", status: 200
 	  end
@@ -108,6 +96,9 @@ class OrdersController < ApplicationController
   def cash
     @order = Order.find(params[:id])
     @order.update_attributes({is_valid: true, payment_type: "cash", encour: false})
+    @order.order_items.item_is_rank.each do |oi|
+	    oi.item.update_attributes({:sold_number => oi.item.sold_number + oi.quantity})
+    end
     detail = "\nTable : #{@order.dining_table.name_of}, Service : #{current_user.login},    Date : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n_______________________________\n#{@order.order_items.map{|oi| "#{oi.item.label} X #{oi.quantity}" }.join("\n")}|#{request.base_url}/orders/#{@order.id}/valid"
     render plain: detail, status: 200
   end
@@ -120,12 +111,18 @@ class OrdersController < ApplicationController
   def ticket
     @order = Order.find(params[:id])
     @order.update_attributes({is_valid: true, payment_type: "ticket", encour: false})
+    @order.order_items.item_is_rank.each do |oi|
+	    oi.item.update_attributes({:sold_number => oi.item.sold_number + oi.quantity})
+    end
     detail = "\nTable : #{@order.dining_table.name_of}, Service : #{current_user.login},    Date : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n_______________________________\n#{@order.order_items.map{|oi| "#{oi.item.label} X #{oi.quantity}" }.join("\n")}|#{request.base_url}/orders/#{@order.id}/valid"
     render plain: detail, status: 200
   end
   def cheque
     @order = Order.find(params[:id])
     @order.update_attributes({is_valid: true, payment_type: "cheque", encour: false})
+    @order.order_items.item_is_rank.each do |oi|
+	    oi.item.update_attributes({:sold_number => oi.item.sold_number + oi.quantity})
+    end
     detail = "\nTable : #{@order.dining_table.name_of}, Service : #{current_user.login},    Date : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n_______________________________\n#{@order.order_items.map{|oi| "#{oi.item.label} X #{oi.quantity}" }.join("\n")}|#{request.base_url}/orders/#{@order.id}/valid"
     render plain: detail, status: 200
   end
@@ -149,6 +146,9 @@ class OrdersController < ApplicationController
   def multiPayOk
     @order = Order.find(params[:id])
     @order.update_attributes({is_valid: true, payment_type: "multiPay", comments: params.to_s, encour: false})
+    @order.order_items.item_is_rank.each do |oi|
+	    oi.item.update_attributes({:sold_number => oi.item.sold_number + oi.quantity})
+    end
     detail = "\nTable : #{@order.dining_table.name_of}, Service : #{current_user.login},\nDate : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n CB : #{params[:cart]}\n_______________________________\n#{@order.order_items.map{|oi| "#{oi.item.label} X #{oi.quantity}" }.join("\n")}|#{request.base_url}/orders/#{@order.id}/valid"
     render plain: detail, status: 200
   end

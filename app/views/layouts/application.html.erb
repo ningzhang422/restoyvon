@@ -109,6 +109,48 @@ help_outline
         </div> <!-- page-content -->
       </div> <!-- page -->
 </div> <!-- panel -->
+<% if current_user.try(:login) == "admin" %>
+<div class="panel panel-right panel-reveal">
+      <div class="view view-init view-right" name="right" data-url="/">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner sliding">
+              <div class="title">销售排行榜</div>
+            </div>
+          </div>
+          <div class="page-content">
+	    <div class="block">
+		<div class="row" id="items_sold">
+			<% Item.where("sold_number!=0").order("sold_number desc").each do |i| %>
+                                <div class="col-100" id="item_<%=i.id%>" style="padding:0 0 10px 0;">
+                                        <div class="chip" style="padding:0 0 0 12px;background-color:#ffffff;">
+                                                <a href=<%="/items/#{i.id}/add_item"%> data-remote="true">
+							<div class="chip-media bg-color-blue">
+								<i class="icon material-icons md-only">add_circle</i>
+							</div>
+                                                </a>
+						<div class="chip-label" style="width:170px;">
+							<img src="<%=image_path(i.url)%>" style="width:30px; float:left;">
+							<%= i.label %> <br> 
+							<span class="badge color-red"><%= i.sold_number %></span>
+							<span class="badge color-red"><%= i.amount %></span>
+						</div>
+                                                <a href=<%="/items/#{i.id}/remove_item"%> data-remote="true">
+							<div class="chip-media bg-color-red">
+								<i class="icon material-icons">remove_circle</i>
+							</div>
+                                                </a>
+                                        </div>
+				</div>
+				<br>
+                    <% end %>
+		</div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+<% end %>
     <!-- Views -->
     <div class="views">
       <!-- Your main view, should have "view-main" class -->
