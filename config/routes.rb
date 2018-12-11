@@ -34,12 +34,15 @@ Rails.application.routes.draw do
 	   get "multiPayOk"
 	   get "dining_tables"
 	   get "login"
+	   get "is_print"
+	   get "change_table"
     end 
     resources :order_items do
       member do
         get "add_item"
 	get "add_new_item"
 	get "remove_item"
+	get "add_new_item_sup"
       end
     end 
   end

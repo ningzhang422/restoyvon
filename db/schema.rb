@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181023194337) do
+ActiveRecord::Schema.define(version: 20181121213109) do
 
   create_table "dining_tables", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name_of"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20181023194337) do
     t.datetime "updated_at", null: false
     t.boolean "is_rank", default: true
     t.integer "sold_number", default: 0
+    t.integer "promotion_id"
   end
 
   create_table "order_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -52,6 +53,8 @@ ActiveRecord::Schema.define(version: 20181023194337) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "line_id", default: 0
+    t.float "rate", limit: 24
+    t.float "amount_v", limit: 24
   end
 
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -64,6 +67,15 @@ ActiveRecord::Schema.define(version: 20181023194337) do
     t.boolean "is_valid", default: false
     t.string "payment_type"
     t.string "uniqId"
+  end
+
+  create_table "promotions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "label"
+    t.string "short_label"
+    t.float "rate", limit: 24
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "settings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

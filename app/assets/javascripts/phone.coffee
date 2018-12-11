@@ -3,5 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #= require rails-ujs
 #= require framework7
+#= require framework7.keypad.min
 #= require route
 #= require setup

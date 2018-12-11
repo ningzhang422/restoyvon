@@ -8,6 +8,7 @@
     			<div class="right">
       				<!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"><i class="icon icon-bars-blue"></i></a>
 				<span id="number_people" style="display:none;"><%= @table.active_order.blank? ? 0 : @table.active_order.quantity %></span>
+				<span id="number_order" style="display:none;"><%= @table.current_order_id %></span>
     			</div>
   		</div>
 	</div>
@@ -25,16 +26,25 @@
     </div>
   </div>
   <div class="tabs-swipeable-wrap" style="height:350px; width: 100%;">
+	  <% cache "order_#{@table.try(:active_order).try(:id)}" do %>
     <div class="tabs">
       <div id="tab-0" class="page-content tab tab-active">
 	<div class="block" style="margin: 10px 0;">
 	      <div class="row">
 		      <% Item.where(category_id: 0).each do |item| %>
-			<div class="col-50 tablet-25">
-				<div class="card demo-card-header-pic">
-					<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw; background-image:url(<%=image_path(item.url)%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
-				</div>
-			</div>
+			      <% unless item.amount.blank?%>
+					<div class="col-50 tablet-25">
+						<div class="card demo-card-header-pic">
+							<a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item"%> data-remote="true" class="item-link item-content"><div style="height: 25vw; background-image:url(<%=image_path(item.url)%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
+						</div>
+					</div>
+				<% else %>
+					<div class="col-50 tablet-25">
+                                                <div class="card demo-card-header-pic">
+                                                        <a href=<%="/orders/#{@table.try(:active_order).try(:id)}/order_items/#{item.id}/add_new_item_sup"%> class="item-link item-content"><div style="height: 25vw; background-image:url(<%=image_path(item.url)%>); font-weight:bold;color:#000000;" valign="bottom" class="card-header"><%=item.label %></div></a>
+                                                </div>
+                                        </div>
+				<% end %>
 		      <% end %>
 	      </div>
         </div>
@@ -144,9 +154,10 @@
         </div>
       </div>
     </div>
+<% end %>
   </div>
   <div class="md color-theme-blue" style="background:#2196f3; height:26px;line-height:2;padding:0 8px;">
-	  <span style="float:left; color:#ffffff;">我的订单</span><span style="float:right;color:#FFFFFF;">总额: <b id="amount_updated"><%= number_to_currency(@montant, :unit => "€") %></b></span> 
+	  <span style="float:left; color:#ffffff;">我的订单</span><span style="float:right;color:#FFFFFF; <%= Setting.where(label: "show_amount_screen").first.active ? '' : 'display:none;' %>">总额: <b id="amount_updated"><%= number_to_currency(@montant, :unit => "€") %></b></span> 
   </div>
   <div class="block" style="margin: 5px 0;overflow: auto;height: 160px;width:100%;">
 	  <div class="row" id="items_choosen">
@@ -160,7 +171,7 @@
                                                         <i class="icon material-icons md-only">add_circle</i>
                                                 </div>
                                                 </a>
-						<div class="chip-label" style="width: 113px;"><%= oi.item.label %> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
+						<div class="chip-label" style="width: 113px;"><%= oi.item.label %> <%=oi.try(:amount_v)%> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
                                                 <a href=<%="/orders/#{oi.order_id}/order_items/#{oi.id}/remove_item"%> data-remote="true">
                                                 <div class="chip-media bg-color-red">
                                                         <i class="icon material-icons">remove_circle</i>
@@ -176,7 +187,7 @@
 							<i class="icon material-icons md-only">add_circle</i>
 						</div>
 						</a>
-						<div class="chip-label" style="width: 113px;"><%= oi.item.label %> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
+						<div class="chip-label" style="width: 113px;"><%= oi.item.label %> <%=oi.try(:amount_v)%> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
 						<a href=<%="/orders/#{oi.order_id}/order_items/#{oi.id}/remove_item"%> data-remote="true">
                 				<div class="chip-media bg-color-red">
 							<i class="icon material-icons">remove_circle</i>
@@ -192,8 +203,8 @@
      <div  class="block">
 	  <p class="row">
 	  <% unless @table.active_order.blank? %>
-		  <a href="<%=order_path(@table.active_order.id)%>" class="item-content item-link col button button-raised">确认并下单</a>
-	  	  <a href="<%=finish_order_path(@table.active_order.id)%>" class="col button button-fill color-blue">清台</a>
+		  <a href="<%=order_path(@table.active_order.id)%>" class="item-content item-link col button button-big button-raised">确认并下单</a>
+	  	  <a href="<%=finish_order_path(@table.active_order.id)%>" class="col button button-big button-fill color-blue">清台</a>
 	  <% end %>
         </p>
      </div>

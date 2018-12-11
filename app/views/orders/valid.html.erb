@@ -7,15 +7,22 @@
 	<br><br><br>
 	<% if @order.is_valid || @order.uniqId != params[:uniqId]  %>
 		<div class="card">
-			<div class="card-content card-content-padding"><center><b style="font-size: 20px; color: #cc0000;">此单已经支付或不是当日压桌单，故不能扫描</b><br><a href="#" class="button button-raised" onclick="zhang.callCameraScan()">扫码</a></center><br><a href="#" class="button button-raised" onclick="app.router.navigate('/dining_tables', {reloadCurrent:true, ignoreCache:true});">大厅</a>
+			<div class="card-content card-content-padding"><center><b style="font-size: 20px; color: #cc0000;">此单已经支付或不是当日压桌单，故不能扫描</b><br><a href="#" class="button button-big button-raised" onclick="zhang.callCameraScan()">扫码</a></center><br><a href="#" class="button button-big button-raised" onclick="app.router.navigate('/dining_tables', {reloadCurrent:true, ignoreCache:true});">大厅</a>
 			</div>
 		</div>
 
 	<% else %>
 		<div class="data-table" style="height: 400px; overflow:auto;">
 			<div class="card">
-				<div class="card-content card-content-padding"><center><b style="font-size: 20px; color: #cc0000;"><%= number_to_currency(@order.order_items.map(&:amount).sum, :unit => "€")%></b></center></div>
+				<div class="card-content card-content-padding">
+					<center><b style="font-size: 20px; color: #cc0000;"><%= number_to_currency(@order.order_items.map(&:amount).sum, :unit => "€")%></b></center>
+				</div>
 			</div>
+  			<div class="card row">
+                                                <% Promotion.all.each do |p| %>
+							<a href="/orders/<%=@order.id%>/valid?uniqId=<%=@order.uniqId%>&promotion_id=<%=p.id%>" class="col button button-outline <%=@order.order_items.select{|oi| !oi.rate.blank?}.size > 0 ? "disabled" : "" %>"><%=p.short_label%></a>
+                                                <% end %>
+  			</div>
 			<table>
 			<thead>
 			<tr>
@@ -29,7 +36,7 @@
 			<tr>
 				<td class="label-cell"><%= oi.item.label%></td>
 				<td class="numeric-cell"><%=oi.quantity%></td>
-				<td class="numeric-cell"><%=oi.item.amount * oi.quantity%></td>
+				<td class="numeric-cell"><%=oi.rate.blank? ? "" : "(#{oi.item.amount} x #{oi.quantity}) x #{oi.rate}" %> <%=oi.amount %></td>
 			</tr>
 				<% end %>
 			</tbody>
@@ -38,13 +45,13 @@
 
 		<div class="block">
 			<p class="row">
-				<a href="<%=cash_order_path(@order.id)%>" class="col button button-fill color-green open-confirm">现金</a>
-				<a href="<%=cart_order_path(@order.id)%>" class="col button button-fill color-red open-confirm">刷卡</a>
-				<a href="<%=ticket_order_path(@order.id)%>" class="col button button-fill color-blue open-confirm">饭票(c.v)</a>
+				<a href="<%=cash_order_path(@order.id)%>" class="col button button-big button-fill color-green open-confirm">现金</a>
+				<a href="<%=cart_order_path(@order.id)%>" class="col button button-big button-fill color-red open-confirm">刷卡</a>
+				<a href="<%=ticket_order_path(@order.id)%>" class="col button button-big button-fill color-blue open-confirm">饭票(c.v)</a>
 			</p>
 			<p class="row">
-				<a href="<%=cheque_order_path(@order.id)%>" class="col button button-fill color-blue open-confirm">支票</a>
-                                <a href="<%=multiPay_order_path(@order.id)%>" class="col button button-fill color-blue open-confirm">多方式支付</a>
+				<a href="<%=cheque_order_path(@order.id)%>" class="col button button-big button-fill color-blue open-confirm">支票</a>
+                                <a href="<%=multiPay_order_path(@order.id)%>" class="col button button-big button-fill color-blue open-confirm">多方式支付</a>
                         </p>
 		</div>
 	<% end %>

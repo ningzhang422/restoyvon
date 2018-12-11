@@ -10,4 +10,4 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
-Rails.application.config.assets.precompile += %w( phone.css phone.js app.css route.js setup.js )
+Rails.application.config.assets.precompile += %w( phone.css phone.js app.css route.js setup.js framework7.keypad.min.css )

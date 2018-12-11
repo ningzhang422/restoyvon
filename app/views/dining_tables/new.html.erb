@@ -6,7 +6,7 @@
 				<div class="item-inner">
 					<div class="item-title item-label">自定义桌号</div>
 					<div class="item-input-wrap">
-						<%= f.text_field :name_of,type:'number', placeholder: "自定义桌号", id: "chooseNameTable", :onkeyup => "getLink()"%>
+						<%= f.text_field :name_of,type:'text', placeholder: "自定义桌号", id: "chooseNameTable", class: "numpad", :onkeyup => "getLink()"%>
 						<span class="input-clear-button" onclick="getLink()"></span>
 					</div>
 				</div>

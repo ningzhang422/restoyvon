@@ -494,6 +494,24 @@ div#items_choosen .chip-label {
   font-size:10px;
 }
 
-div.sheet-modal{
-	height: 100%;
+div.sheet-modal {
+	height:360px;
+}
+.md .sheet-modal .toolbar + .sheet-modal-inner {
+    height: calc(100% - 110px);
+}
+.sheet-modal .sheet-modal-inner {
+    overflow: visible;
+} 
+.keypad{
+    z-index: 99999;
+}
+.dialog{
+  top:40%;
+}
+span, div.chip-label, div.title, div.block-title {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
