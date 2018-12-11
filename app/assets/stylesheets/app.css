@@ -515,3 +515,8 @@ span, div.chip-label, div.title, div.block-title {
   -ms-user-select: none;
   user-select: none;
 }
+.md .fab > a, .md .fab-buttons a {
+	width: 87px;
+	height: 60px;
+}
+
