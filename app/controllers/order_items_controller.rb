@@ -335,8 +335,8 @@ render json: {error: true}, status: 400
 				render json: {error: true}, status: 400
 			end
 		else
-			if OrderItem.where("order_id = ? and item_id = ? and amount_v = ? and quantity < 0",@order_id,@item_id, @amount_v).length > 0
-				@order_item_moin = OrderItem.where("order_id = ? and item_id = ? and amount_v = ? and quantity < 0",@order_id,@item_id, @amount_v).first
+			if OrderItem.where("order_id = ? and item_id = ? and #{@amount_v.blank? ? "amount_v is ?" : "amount_v= ?"} and quantity < 0",@order_id,@item_id, @amount_v).length > 0
+				@order_item_moin = OrderItem.where("order_id = ? and item_id = ? and #{@amount_v.blank? ? "amount_v is ?" : "amount_v= ?"} and quantity < 0",@order_id,@item_id, @amount_v).first
 				if @order_item_moin.update_attributes({:quantity => @order_item_moin.quantity - 1})
 					@order.order_items.order("line_id ASC").each do |io|
 						if io.quantity < 0
