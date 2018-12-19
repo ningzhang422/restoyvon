@@ -17,7 +17,7 @@
             <form data-search-container=".components-list" data-search-in="a" class="searchbar searchbar-expandable searchbar-components searchbar-init">
               <div class="searchbar-inner">
                 <div class="searchbar-input-wrap">
-                  <input type="search" placeholder="Search components"/>
+                  <input type="search" id="searchbar" placeholder="Search components"/>
                   <i class="searchbar-icon"></i>
                   <span class="input-clear-button"></span>
                 </div>
@@ -26,7 +26,7 @@
             </form>
           </div>
         </div>
-	<div class="page-content">
+	<div class="page-content" style="height:600px; overflow:auto;">
 	  <div class="block-title searchbar-found">请点击加号添加餐桌 ：</div>
           <div class="list components-list searchbar-found">
 				<ul class="actions-group actions-grid">
@@ -49,20 +49,19 @@
 				</ul>
            </div>
 	</div>
-
-	<div class="fab fab-right-bottom">
-	    <a href="<%=new_dining_table_path%>" class="item-content item-link">
-	      <i class="icon material-icons md-only">add</i>
-	    </a>
-	</div>
-	<div class="fab fab-left-bottom">
-	    <a href="#" class=""  onclick="zhang.callCameraScan()">
-	      <i class="icon material-icons md-only">crop_free</i>
-	    </a>
-	</div>
-	<div class="fab fab-right-top">
-	    <a href="#" class="" onclick="yu.loadWebview()">
-	      <i class="icon material-icons md-only">autorenew</i>
-	    </a>
-	  </div>
-</div>
+    <div class="toolbar tabbar-labels toolbar-bottom-md">
+      <div class="toolbar-inner">
+	      <% if current_user.login == "admin" %>
+        <a href="#" class="link" onclick="zhang.callCameraScan()">
+          <i class="icon material-icons md-only size-22">crop_free</i>
+	</a>
+		<% end %>
+        <a href="#" class="link" onclick="yu.loadWebview()">
+          <i class="icon material-icons md-only size-22">autorenew</i>
+        </a>
+        <a href="<%=new_dining_table_path%>" class="link">
+          <i class="icon material-icons md-only size-22">add</i>
+        </a>
+      </div>
+    </div>
+    </div>

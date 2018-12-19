@@ -159,7 +159,8 @@
   <div class="md color-theme-blue" style="background:#2196f3; height:26px;line-height:2;padding:0 8px;">
 	  <span style="float:left; color:#ffffff;">我的订单</span><span style="float:right;color:#FFFFFF; <%= Setting.where(label: "show_amount_screen").first.active ? '' : 'display:none;' %>">总额: <b id="amount_updated"><%= number_to_currency(@montant, :unit => "€") %></b></span> 
   </div>
-  <div class="block" style="margin: 5px 0;overflow: auto;height: 160px;width:100%;">
+  <div class="page-content hide-toolbar-on-scroll" style="padding-top:0; overflow: auto;height: 200px;width:100%;">
+	  <div class="block" style="margin:10px 0;">
 	  <div class="row" id="items_choosen">
 		  <% unless @table.active_order.blank? %>
 			  <% @table.active_order.order_items.each do |oi| %>
@@ -198,15 +199,20 @@
 			<% end %>
 			  <% end %>
 		  <% end %>
-	</div>
+	  </div>
+	  </div>
   </div>
-     <div  class="block">
-	  <p class="row">
-	  <% unless @table.active_order.blank? %>
-		  <a href="<%=order_path(@table.active_order.id)%>" class="item-content item-link col button button-big button-raised">确认并下单</a>
-	  	  <a href="<%=finish_order_path(@table.active_order.id)%>" class="col button button-big button-fill color-blue">清台</a>
-	  <% end %>
-        </p>
-     </div>
+
+
+  <div class="toolbar tabbar-labels toolbar-bottom-md">
+      <div class="toolbar-inner">
+        <a href="<%=order_path(@table.active_order.id)%>" class="link">
+          确认并下单
+        </a>
+        <a href="<%=finish_order_path(@table.active_order.id)%>" class="link">
+          清台
+        </a>
+      </div>
+    </div>
 </div>
 
