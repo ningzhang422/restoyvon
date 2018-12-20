@@ -783,6 +783,7 @@ var routes = [
   {
           path: '/orders/:id/finish',
           async: function(routeto, routefrom, resolve, reject) {
+		  app.dialog.confirm("<b>点击OK即可回到大厅，但此单将作废，你要回到大厅吗？</b>","注意",function(){
             app.request(
               {
                 url: routeto.url,
@@ -826,7 +827,7 @@ var routes = [
                   console.log("error");
                 }
               }
-            )
+            )});
           }
   },
   {
@@ -887,9 +888,7 @@ var routes = [
                                 if(response == "true"){
 					app.router.navigate("/dining_tables", {reloadAll:true, ignoreCache:true});
                                 }else{
-					app.dialog.confirm("点击OK即可回到大厅，但此单将作废，你要回到大厅吗？","注意",function(){
 						  app.router.navigate("/orders/"+$("#number_order").html()+"/finish", {reloadAll:true, ignoreCache:true});
-					  });
                                 }
                         },
                         error: function(){
@@ -995,8 +994,14 @@ var routes = [
               cssClass: 'keypad-delete-button',
               dark: true,
             }
-				]
-			    });
+				],
+	on: {
+                  buttonClick(keypad, button) {
+			getLink();
+		  }
+	}
+			    }).open();
+
                 },
                 error: function(){
                   //console.log("error");
@@ -1397,9 +1402,7 @@ var routes = [
                                 if(response == "true"){
                                         app.router.navigate("/dining_tables", {reloadAll:true, ignoreCache:true});
                                 }else{
-                                        app.dialog.confirm("点击OK即可回到大厅，但此单将作废，你要回到大厅吗？","注意",function(){
                                                   app.router.navigate("/orders/"+$("#number_order").html()+"/finish", {reloadAll:true, ignoreCache:true});
-                                          });
                                 }
                         },
                         error: function(){

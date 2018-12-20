@@ -6,8 +6,7 @@
 				<div class="item-inner">
 					<div class="item-title item-label">自定义桌号</div>
 					<div class="item-input-wrap">
-						<%= f.text_field :name_of,type:'text', placeholder: "自定义桌号", id: "chooseNameTable", class: "numpad", :onkeyup => "getLink()"%>
-						<span class="input-clear-button" onclick="getLink()"></span>
+						<%= f.text_field :name_of,type:'text', placeholder: "自定义桌号", id: "chooseNameTable", class: "numpad", :onkeyup => "getLink()", :onblur => "getLink()", :onkeydown => "getLink()"%>
 					</div>
 				</div>
 			</li>
@@ -16,9 +15,8 @@
 <div class="item-title item-label">人数 </div>
 <div class="item-input-wrap input-dropdown-wrap">
 <select placeholder="Please choose..." class="input-with-value" id="chooseNbPeople" onchange="getLink()">
-<option value=""></option>
 <option value="1">1</option>
-<option value="2">2</option>
+<option value="2" selected>2</option>
 <option value="3">3</option>
 <option value="4">4</option>
 <option value="5">5</option>

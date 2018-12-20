@@ -72,7 +72,7 @@ var app = new Framework7({
   },
 });
 //app.statusbar.show();
-app.keypad.create({
+var searchpad =	app.keypad.create({
                               inputEl: '#searchbar',
                                 buttons: [
                                         {
@@ -139,3 +139,6 @@ app.keypad.create({
             }
                                 ]
                             });
+$("#searchbar").on('focus',function(){
+	searchpad.open();
+});
