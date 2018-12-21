@@ -30,7 +30,7 @@ var routes = [
           path: '/orders/:id/valid',
           async: function(routeto, routefrom, resolve, reject) {
 		if(routeto.query.promotion_id != null){
-		  app.dialog.confirm("<b>确定要使用折扣快捷键吗？</b>","注意",function(){
+		  app.dialog.confirm("<b>您确定要使用折扣快捷键吗？</b>",function(){
 		    app.request(
 		      {
 			url: routeto.url,
@@ -94,7 +94,7 @@ var routes = [
   {
           path: '/orders/:id/cart',
           async: function(routeto, routefrom, resolve, reject) {
-		  app.dialog.confirm("刷卡支付？","注意",function(){
+		  app.dialog.confirm("您确定要刷卡支付？",function(){
 		    app.request(
 		      {
 			url: routeto.url,
@@ -140,7 +140,7 @@ var routes = [
           path: '/orders/:id/multiPayOk',
           async: function(routeto, routefrom, resolve, reject) {
 
-		  app.dialog.confirm("<b>现金:&nbsp;&nbsp;"+routeto.query.cash+"<br>刷卡:&nbsp;&nbsp;"+routeto.query.cart+"<br>支票:&nbsp;&nbsp;"+routeto.query.cheque+"<br>c.v.:&nbsp;&nbsp;"+routeto.query.tkresto+"<br>其他:&nbsp;&nbsp;"+routeto.query.others+"</b>","注意-多方式支付",function(){
+		  app.dialog.confirm("<b>多方式支付明细：</b><br><b>现金:&nbsp;&nbsp;"+routeto.query.cash+"<br>刷卡:&nbsp;&nbsp;"+routeto.query.cart+"<br>支票:&nbsp;&nbsp;"+routeto.query.cheque+"<br>c.v.:&nbsp;&nbsp;"+routeto.query.tkresto+"<br>其他:&nbsp;&nbsp;"+routeto.query.others+"</b>",function(){
             app.request(
               {
                 url: routeto.url,
@@ -582,7 +582,7 @@ var routes = [
   {
           path: '/orders/:id/cheque',
           async: function(routeto, routefrom, resolve, reject) {
-		  app.dialog.confirm("支票支付？","注意",function(){
+		  app.dialog.confirm("您确定要支票支付？",function(){
             app.request(
               {
                 url: routeto.url,
@@ -634,7 +634,7 @@ var routes = [
   {
           path: '/orders/:id/ticket',
           async: function(routeto, routefrom, resolve, reject) {
-		  app.dialog.confirm("饭票或c.v.支付？","注意",function(){
+		  app.dialog.confirm("您确定要饭票或c.v.支付？",function(){
             app.request(
               {
                 url: routeto.url,
@@ -686,7 +686,7 @@ var routes = [
   {
           path: '/orders/:id/cash',
           async: function(routeto, routefrom, resolve, reject) {
-		  app.dialog.confirm("现金支付？","注意",function(){
+		  app.dialog.confirm("您确定要现金支付？",function(){
             app.request(
               {
                 url: routeto.url,
@@ -783,7 +783,7 @@ var routes = [
   {
           path: '/orders/:id/finish',
           async: function(routeto, routefrom, resolve, reject) {
-		  app.dialog.confirm("<b>点击OK即可回到大厅，但此单将作废，你要回到大厅吗？</b>","注意",function(){
+		  app.dialog.confirm("<b>点击确定即可回到大厅，但此单将作废，你要回到大厅吗？</b>",function(){
             app.request(
               {
                 url: routeto.url,
@@ -821,6 +821,76 @@ var routes = [
                                                 position: 'top',
                                                 closeTimeout: 2000,
                                         }).open();
+				var searchpad = app.keypad.create({
+                              inputEl: '#searchbar',
+                                buttons: [
+                                        {
+              html: '<span class="keypad-button-number">1</span>',
+              value: 1,
+            },
+            {
+              html: '<span class="keypad-button-number">2</span>',
+              value: 2,
+            },
+            {
+              html: '<span class="keypad-button-number">3</span>',
+              value: 3,
+            },
+            {
+              html: '<span class="keypad-button-number">4</span>',
+              value: 4,
+            },
+            {
+              html: '<span class="keypad-button-number">5</span>',
+              value: 5,
+            },
+            {
+              html: '<span class="keypad-button-number">6</span>',
+              value: 6,
+            },
+            {
+              html: '<span class="keypad-button-number">7</span>',
+              value: 7,
+            },
+            {
+              html: '<span class="keypad-button-number">8</span>',
+              value: 8,
+            },
+            {
+              html: '<span class="keypad-button-number">9</span>',
+              value: 9,
+            },
+            {
+              html: 'A',
+              value: 'a',
+            },
+            {
+              html: 'B',
+              value: 'b',
+            },
+            {
+              html: 'C',
+              value: 'c',
+            },
+            {
+              html: '.',
+              value: '.',
+              dark: true,
+            },
+            {
+              html: '<span class="keypad-button-number">0</span>',
+              value: 0,
+            },
+            {
+              html: '<i class="icon icon-keypad-delete"></i>',
+              cssClass: 'keypad-delete-button',
+              dark: true,
+            }
+                                ]
+                            });
+$("#searchbar").on('focus',function(){
+        searchpad.open();
+});
 			}
                 },
                 error: function(){

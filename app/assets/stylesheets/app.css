@@ -519,4 +519,8 @@ span, div.chip-label, div.title, div.block-title {
 	width: 87px;
 	height: 60px;
 }
+span.dialog-button{
+        background-color: #2196f3 !important;
+        color: #ffffff !important;
+}
 

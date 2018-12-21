@@ -70,6 +70,13 @@ var app = new Framework7({
   vi: {
     placementId: 'pltd4o7ibb9rc653x14',
   },
+  dialog: {
+    // set default title for all dialog shortcuts
+    title: '系统信息',
+    // change default "OK" button text
+    buttonOk: '确定',
+    buttonCancel: '取消'
+  },
 });
 //app.statusbar.show();
 var searchpad =	app.keypad.create({
