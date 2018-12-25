@@ -24,6 +24,7 @@ class OrdersController < ApplicationController
 
   def show
 	  @order = Order.find(params[:id])
+=begin
 	  uniqId = define_uniqid SecureRandom.random_number(1000..9999)
 	  #uniqId = Time.now.strftime("%m%d%H%M%S%L").to_s
 
@@ -46,6 +47,7 @@ class OrdersController < ApplicationController
 	  end
 	@order.encour = 1
 	@order.save
+=end
 	#detail = "\nTable : #{@order.dining_table.name_of}, Service : #{current_user.login},    Date : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n_______________________________\n#{@order.order_items.map{|oi| "#{oi.item.label} X #{oi.quantity}" }.join("\n")}|#{request.base_url}|#{@order.id}|#{@order.uniqId}"
         #render plain: detail, status: 200
   end
@@ -71,6 +73,7 @@ class OrdersController < ApplicationController
     end
 
     @order.uniqId = uniqId
+    @order.encour = 1
     @order.save
 
     total_amount = Setting.where(label: "show_amount_ticket").first.active ? "\nTotal : #{@order.order_histories.order(:created_at).try(:last).try(:amount)}" : ""

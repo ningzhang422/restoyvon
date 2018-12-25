@@ -5,7 +5,8 @@ class UserSessionsController < Devise::SessionsController #ApplicationController
 	    render plain: "ok"
        #redirect_to(root_path)
     else
-      error(:login_failed)
+      #error(:login_failed)
+      flash[:error] = "用户名或密码不正确，login ou mot de passe est incorrect!"
       redirect_to login_path
     end
   end

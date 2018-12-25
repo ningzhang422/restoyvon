@@ -3,7 +3,7 @@
 
                 <div class="navbar-inner">
 
-			<% if @order.order_histories.order(:created_at).try(:last).printable > 0 %>
+			<% if !@order.order_histories.blank? && @order.order_histories.order(:created_at).try(:last).printable > 0 %>
 				<div class="left"><a href="/dining_tables" class="link"><i class="icon icon-back"></i></a></div>
 				<div class="center sliding"><a href="<%=change_table_order_path(@order.id)%>"><span id="yazhuodan"><%= @order.dining_table.name_of %></span> 压桌单</a></div>
 			<% else %>

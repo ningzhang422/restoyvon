@@ -163,7 +163,7 @@
 	  <div class="block" style="margin:10px 0;">
 	  <div class="row" id="items_choosen">
 		  <% unless @table.active_order.blank? %>
-			  <% @table.active_order.order_items.each do |oi| %>
+			  <% @table.active_order.order_items.order("line_id desc").each do |oi| %>
 			  	<% if oi.quantity < 0 %>
 					<div class="col-50 tablet-25" id="item_<%=oi.id%>">
                                         <div class="chip" style="padding:0 0 0 12px; background: #cc0000;">

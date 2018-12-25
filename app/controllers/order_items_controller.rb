@@ -11,10 +11,15 @@ class OrderItemsController < ApplicationController
 			if order_item.save #OrderItem.create({:order_id => @order_id, :item_id => @item_id, :quantity => 1})
 			   order_item.line_id = @order.order_items.length + 1
 			   order_item.save
-			@order.order_items.each do |io|
+			   @order.order_items.order("order_items.line_id desc").each do |io|
+				if io.id == order_item.id 
+					bg = "bg-color-green"
+				else	
+					bg = ""
+				end
 				if io.quantity < 0
 				htmltext += "<div class='col-50 tablet-25'>
-				<div class='chip' style='padding:0 0 0 12px; background:#cc0000;'>
+				<div class='chip #{bg}' style='padding:0 0 0 12px; background:#cc0000;'>
 					<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
 					<div class='chip-media bg-color-blue'>
 						<i class='icon material-icons md-only'>add_circle</i>
@@ -30,7 +35,7 @@ class OrderItemsController < ApplicationController
 			     </div>"
 				else
 				htmltext += "<div class='col-50 tablet-25'>
-				<div class='chip' style='padding:0 0 0 12px;'>
+				<div class='chip #{bg}' style='padding:0 0 0 12px;'>
 					<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
 					<div class='chip-media bg-color-blue'>
 						<i class='icon material-icons md-only'>add_circle</i>
@@ -51,11 +56,17 @@ class OrderItemsController < ApplicationController
 				render json: {error: true}, status: 400
 			end
 		else
-			if OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first.update_attributes({:quantity => OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first.quantity + 1})
-				@order.order_items.each do |io|
+			order_item = OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first
+			if order_item.update_attributes({:quantity => OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first.quantity + 1})
+				@order.order_items.order("line_id desc").each do |io|
+				if io.id == order_item.id
+                                        bg = "bg-color-green"
+                                else
+                                        bg = ""
+                                end
                                 if io.quantity < 0
                                 htmltext += "<div class='col-50 tablet-25'>
-                                <div class='chip' style='padding:0 0 0 12px; background:#cc0000;'>
+                                <div class='chip #{bg}' style='padding:0 0 0 12px; background:#cc0000;'>
                                         <a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
                                         <div class='chip-media bg-color-blue'>
                                                 <i class='icon material-icons md-only'>add_circle</i>
@@ -71,7 +82,7 @@ class OrderItemsController < ApplicationController
                              </div>"
                                 else
                                 htmltext += "<div class='col-50 tablet-25'>
-                                <div class='chip' style='padding:0 0 0 12px;'>
+                                <div class='chip #{bg}' style='padding:0 0 0 12px;'>
                                         <a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
                                         <div class='chip-media bg-color-blue'>
                                                 <i class='icon material-icons md-only'>add_circle</i>
@@ -109,10 +120,15 @@ render json: {error: true}, status: 400
 			if order_item.save #OrderItem.create({:order_id => @order_id, :item_id => @item_id, :quantity => 1})
 			   order_item.line_id = @order.order_items.length + 1
 			   order_item.save
-			@order.order_items.each do |io|
+			@order.order_items.order("line_id desc").each do |io|
+				if io.id == order_item.id
+                                        bg = "bg-color-green"
+                                else
+                                        bg = ""
+                                end
 				if io.quantity < 0
 				htmltext += "<div class='col-50 tablet-25'>
-				<div class='chip' style='padding:0 0 0 12px; background:#cc0000;'>
+				<div class='chip #{bg}' style='padding:0 0 0 12px; background:#cc0000;'>
 					<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
 					<div class='chip-media bg-color-blue'>
 						<i class='icon material-icons md-only'>add_circle</i>
@@ -128,7 +144,7 @@ render json: {error: true}, status: 400
 			     </div>"
 				else
 				htmltext += "<div class='col-50 tablet-25'>
-				<div class='chip' style='padding:0 0 0 12px;'>
+				<div class='chip #{bg}' style='padding:0 0 0 12px;'>
 					<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
 					<div class='chip-media bg-color-blue'>
 						<i class='icon material-icons md-only'>add_circle</i>
@@ -149,11 +165,17 @@ render json: {error: true}, status: 400
 				render json: {error: true}, status: 400
 			end
 		else
-			if OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first.update_attributes({:quantity => OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first.quantity + 1})
-                                @order.order_items.each do |io|
+			order_item = OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first
+			if order_item.update_attributes({:quantity => OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first.quantity + 1})
+				@order.order_items.order("line_id desc").each do |io|
+				if io.id == order_item.id
+                                        bg = "bg-color-green"
+                                else
+                                        bg = ""
+                                end
                                 if io.quantity < 0
                                 htmltext += "<div class='col-50 tablet-25'>
-                                <div class='chip' style='padding:0 0 0 12px; background:#cc0000;'>
+                                <div class='chip #{bg}' style='padding:0 0 0 12px; background:#cc0000;'>
                                         <a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
                                         <div class='chip-media bg-color-blue'>
                                                 <i class='icon material-icons md-only'>add_circle</i>
@@ -169,7 +191,7 @@ render json: {error: true}, status: 400
                              </div>"
                                 else
                                 htmltext += "<div class='col-50 tablet-25'>
-                                <div class='chip' style='padding:0 0 0 12px;'>
+                                <div class='chip #{bg}' style='padding:0 0 0 12px;'>
                                         <a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
                                         <div class='chip-media bg-color-blue'>
                                                 <i class='icon material-icons md-only'>add_circle</i>
@@ -207,7 +229,7 @@ render json: {error: true}, status: 400
 			if @order_item.quantity == 0
                                 @order_item.destroy
                         end
-			@order.order_items.order("line_id ASC").each do |io|
+			@order.order_items.order("line_id DESC").each do |io|
 				if io.quantity < 0
 				htmltext += "<div class='col-50 tablet-25'>
 				<div class='chip' style='padding:0 0 0 12px; background:#cc0000;'>
@@ -338,7 +360,7 @@ render json: {error: true}, status: 400
 			if OrderItem.where("order_id = ? and item_id = ? and #{@amount_v.blank? ? "amount_v is ?" : "amount_v= ?"} and quantity < 0",@order_id,@item_id, @amount_v).length > 0
 				@order_item_moin = OrderItem.where("order_id = ? and item_id = ? and #{@amount_v.blank? ? "amount_v is ?" : "amount_v= ?"} and quantity < 0",@order_id,@item_id, @amount_v).first
 				if @order_item_moin.update_attributes({:quantity => @order_item_moin.quantity - 1})
-					@order.order_items.order("line_id ASC").each do |io|
+					@order.order_items.order("line_id DESC").each do |io|
 						if io.quantity < 0
 						htmltext += "<div class='col-50 tablet-25'>
 						<div class='chip' style='padding:0 0 0 12px; background:#cc0000;'>
@@ -380,7 +402,7 @@ render json: {error: true}, status: 400
 				end
 			else
 				if OrderItem.create({:order_id => @order_id, :item_id => @item_id, :quantity => -1, :amount_v => @amount_v ,:line_id => @order_item.line_id})
-					@order.order_items.order("line_id ASC").each do |io|
+					@order.order_items.order("line_id DESC").each do |io|
 						if io.quantity < 0
 						htmltext += "<div class='col-50 tablet-25'>
 						<div class='chip' style='padding:0 0 0 12px; background:#cc0000;'>
