@@ -159,44 +159,34 @@
   <div class="md color-theme-blue" style="background:#2196f3; height:26px;line-height:2;padding:0 8px;">
 	  <span style="float:left; color:#ffffff;">我的订单</span><span style="float:right;color:#FFFFFF; <%= Setting.where(label: "show_amount_screen").first.active ? '' : 'display:none;' %>">总额: <b id="amount_updated"><%= number_to_currency(@montant, :unit => "€") %></b></span> 
   </div>
-  <div class="page-content hide-toolbar-on-scroll" style="padding-top:0; overflow: auto;height: 200px;width:100%;">
+  <div class="page-content" style="padding-top:0; overflow: auto;height: 200px;width:100%;">
 	  <div class="block" style="margin:10px 0;">
 	  <div class="row" id="items_choosen">
 		  <% unless @table.active_order.blank? %>
-			  <% @table.active_order.order_items.order("line_id desc").each do |oi| %>
+			  <% @table.active_order.order_items.order("order_items.created_at desc").each do |oi| %>
 			  	<% if oi.quantity < 0 %>
 					<div class="col-50 tablet-25" id="item_<%=oi.id%>">
-                                        <div class="chip" style="padding:0 0 0 12px; background: #cc0000;">
-                                                <a href=<%="/orders/#{oi.order_id}/order_items/#{oi.id}/add_item"%> data-remote="true">
-                                                <div class="chip-media bg-color-blue">
-                                                        <i class="icon material-icons md-only">add_circle</i>
-                                                </div>
-                                                </a>
-						<div class="chip-label" style="width: 113px;"><%= oi.item.label %> <%=oi.try(:amount_v)%> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
-                                                <a href=<%="/orders/#{oi.order_id}/order_items/#{oi.id}/remove_item"%> data-remote="true">
-                                                <div class="chip-media bg-color-red">
-                                                        <i class="icon material-icons">remove_circle</i>
-                                                </div>
-                                                </a>
-                                        </div>
+						<div class="chip" style="padding:0 0 0 12px; background: #ECAD9E;width:100%;">
+							<div class="chip-label" style="width: 100%;"><%= oi.item.label %> <%=oi.try(:amount_v)%> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
+						</div>
 					</div>
 				<% else %>
-				<div class="col-50 tablet-25" id="item_<%=oi.id%>">
-					<div class="chip" style="padding:0 0 0 12px;">
-						<a href=<%="/orders/#{oi.order_id}/order_items/#{oi.id}/add_item"%> data-remote="true">
-                				<div class="chip-media bg-color-blue">
-							<i class="icon material-icons md-only">add_circle</i>
+					<div class="col-50 tablet-25" id="item_<%=oi.id%>">
+						<div class="chip" style="padding:0 0 0 12px;width:100%;">
+							<a href=<%="/orders/#{oi.order_id}/order_items/#{oi.id}/add_item"%> class="item-link item-content" data-remote="true">
+							<div class="chip-media bg-color-blue">
+								<i class="icon material-icons md-only">add_circle</i>
+							</div>
+							</a>
+							<div class="chip-label" style="width: 100%;"><%= oi.item.label %> <%=oi.try(:amount_v)%> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
+							<a href=<%="/orders/#{oi.order_id}/order_items/#{oi.id}/remove_item"%> class="item-link item-content" data-remote="true">
+							<div class="chip-media bg-color-red">
+								<i class="icon material-icons">remove_circle</i>
+							</div>
+							</a>
 						</div>
-						</a>
-						<div class="chip-label" style="width: 113px;"><%= oi.item.label %> <%=oi.try(:amount_v)%> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
-						<a href=<%="/orders/#{oi.order_id}/order_items/#{oi.id}/remove_item"%> data-remote="true">
-                				<div class="chip-media bg-color-red">
-							<i class="icon material-icons">remove_circle</i>
-						</div>
-						</a>
-        				</div>
-				</div>
-			<% end %>
+					</div>
+				<% end %>
 			  <% end %>
 		  <% end %>
 	  </div>
