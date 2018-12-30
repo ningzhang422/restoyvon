@@ -36,7 +36,11 @@
 			<tr>
 				<td class="label-cell"><%= oi.item.label%></td>
 				<td class="numeric-cell"><%=oi.quantity%></td>
-				<td class="numeric-cell"><%=oi.rate.blank? ? "" : "(#{oi.item.amount} x #{oi.quantity}) x #{oi.rate}" %> <%=oi.amount %></td>
+				<% if oi.quantity > 0 %>
+					<td class="numeric-cell"><%=oi.rate.blank? ? "" : "(#{oi.amount_v.blank? ? oi.item.amount : oi.amount_v} x #{oi.quantity}) x #{oi.rate}" %> <%= oi.amount  %></td>
+				<% else %>
+					<td class="numeric-cell"><%=oi.amount_v.blank? ? oi.item.amount : oi.amount_v %></td>
+				<% end %>
 			</tr>
 				<% end %>
 			</tbody>
