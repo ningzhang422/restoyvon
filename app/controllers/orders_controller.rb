@@ -78,7 +78,7 @@ class OrdersController < ApplicationController
 
     total_amount = Setting.where(label: "show_amount_ticket").first.active ? "\nTotal : #{@order.order_histories.order(:created_at).try(:last).try(:amount)}" : ""
 
-    detail = "\nTable : #{@order.dining_table.name_of}, Service : #{current_user.login},    Date : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n_______________________________\n#{@order.order_items.order("line_id asc").map{|oi| "#{oi.item.label} X #{oi.quantity}" }.join("\n")}#{total_amount}|#{request.base_url}|#{@order.id}|#{@order.uniqId}"
+    detail = "\nTable : #{@order.dining_table.name_of}, Service : #{current_user.login},    Date : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n_______________________________\n#{@order.order_items.order("line_id asc").map{|oi| (oi.quantity > 0 ? "#{oi.item.label} X #{oi.quantity}" : "#{oi.item.label} X #{oi.quantity}".split("").join("\u0336"))}.join("\n")}#{total_amount}|#{request.base_url}|#{@order.id}|#{@order.uniqId}"
         render plain: detail, status: 200
   end
 
@@ -98,7 +98,7 @@ class OrdersController < ApplicationController
 
 		total_amount = Setting.where(label: "show_amount_ticket").first.active ? "\nTotal : #{last_order_history.try(:amount)}" : ""
 
-		detail = "\nTable : #{dining_table.name_of}, Service : #{current_user.login},    Date : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n_______________________________\n#{@order.order_items.order("line_id asc").map{|oi| "#{oi.item.label} X #{oi.quantity}" }.join("\n")}#{total_amount}|#{request.base_url}|#{@order.id}|#{@order.uniqId}|#{dining_table.name_of}"
+		detail = "\nTable : #{dining_table.name_of}, Service : #{current_user.login},    Date : #{Time.now.strftime('%d/%m/%Y %I:%M%p')}\n_______________________________\n#{@order.order_items.order("line_id asc").map{|oi| (oi.quantity > 0 ? "#{oi.item.label} X #{oi.quantity}" : "#{oi.item.label} X #{oi.quantity}".split("").join("\u0336")) }.join("\n")}#{total_amount}|#{request.base_url}|#{@order.id}|#{@order.uniqId}|#{dining_table.name_of}"
 		render plain: detail, status: 200
 	  else
 		render plain: dining_table.errors.full_messages.first.to_s, status: 404

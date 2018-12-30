@@ -30,9 +30,9 @@
 <tbody>
 	<% @order.order_items.order("line_id").each do |oi| %>
  <tr>
-	 <td class="label-cell" bgcolor="<%=oi.quantity > 0 ? "" : "#ffcccc" %>"><%= oi.item.label%></td>
+	<td class="label-cell" bgcolor="<%=oi.quantity > 0 ? "" : "#ffcccc" %>"><%= oi.item.label%></td>
 	<td class="numeric-cell" bgcolor="<%=oi.quantity > 0 ? "" : "#ffcccc" %>"><%=oi.quantity%></td>
-	<td class="numeric-cell" bgcolor="<%=oi.quantity > 0 ? "" : "#ffcccc" %>"><%=oi.amount%></td>
+	<td class="numeric-cell" bgcolor="<%=oi.quantity > 0 ? "" : "#ffcccc" %>"><%=oi.amount_v.blank? ? oi.item.amount : oi.amount_v%></td>
 </tr>
 	<% end %>
 </tbody>
