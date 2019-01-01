@@ -11,39 +11,21 @@ class OrderItemsController < ApplicationController
 			if order_item.save #OrderItem.create({:order_id => @order_id, :item_id => @item_id, :quantity => 1})
 			   order_item.line_id = @order.order_items.length + 1
 			   order_item.save
-			   @order.order_items.order("order_items.line_id desc").each do |io|
+			   @order.order_items.order("order_items.updated_at desc, order_items.line_id desc").each do |io|
 				if io.id == order_item.id 
 					bg = "bg-color-green"
 				else	
 					bg = ""
 				end
 				if io.quantity < 0
-				htmltext += "<div class='col-100 tablet-25'>
-				<div class='chip #{bg}' style='margin:0 0 13px 0;padding:0 0 0 12px; background:#ECAD9E;width:100%;'>
-					<div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-				</div>
-			     </div>"
+				htmltext += "<div class='col-100 tablet-25'><div class='chip #{bg} chip-co'><div class='chip-label chip-co-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div></div></div>"
 				else
-				htmltext += "<div class='col-100 tablet-25'>
-				<div class='chip #{bg}' style='margin:0 0 13px 0;padding:0 0 0 12px;width: 100%;'>
-					<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
-					<div class='chip-media bg-color-blue' style='width:40px; height:40px;'>
-						<i class='icon material-icons md-only'>add_circle</i>
-					</div>
-					</a>
-					<div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-					<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
-					<div class='chip-media bg-color-red' style='width:40px; height:40px;'>
-						<i class='icon material-icons'>remove_circle</i>
-					</div>
-					</a>
-				</div>
-			     </div>"
+				htmltext += "<div class='col-100 tablet-25'><div class='chip chip-c #{bg}'><form data-remote='true'><button class='col button button-fill' formaction='/orders/#{io.order_id}/order_items/#{io.id}/add_item'>+</button></form><div class='chip-label chip-c-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div><form data-remote='true'><button class='col button button-fill color-pink' formaction='/orders/#{io.order_id}/order_items/#{io.id}/remove_item'>-</button></form></div></div>"
 			     	end
-			end
-				render json: {success: true, htmltext: htmltext,item_choosen: "item_#{@item_id}", amount: helper.number_to_currency(@order.order_items.map{|oi| oi.amount}.sum, :unit => "€") }, status: 200
+			   end
+			   render json: {success: true, htmltext: htmltext,item_choosen: "item_#{@item_id}", amount: helper.number_to_currency(@order.order_items.map{|oi| oi.amount}.sum, :unit => "€") }, status: 200
 			else
-				render json: {error: true}, status: 400
+			   render json: {error: true}, status: 400
 			end
 		else
 			order_item = OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first
@@ -55,27 +37,9 @@ class OrderItemsController < ApplicationController
                                         bg = ""
                                 end
                                 if io.quantity < 0
-                                htmltext += "<div class='col-100 tablet-25'>
-                                <div class='chip #{bg}' style='margin:0 0 13px 0;padding:0 0 0 12px; background:#ECAD9E;width:100%;'>
-                                        <div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-                                </div>
-                             </div>"
+                                htmltext += "<div class='col-100 tablet-25'><div class='chip chip-co #{bg}'><div class='chip-label chip-co-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div></div></div>"
                                 else
-                                htmltext += "<div class='col-100 tablet-25'>
-                                <div class='chip #{bg}' style='margin:0 0 13px 0;padding:0 0 0 12px;width: 100%;'>
-                                        <a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
-                                        <div class='chip-media bg-color-blue' style='width:40px; height:40px;'>
-                                                <i class='icon material-icons md-only'>add_circle</i>
-                                        </div>
-                                        </a>
-                                        <div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-                                        <a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
-                                        <div class='chip-media bg-color-red' style='width:40px; height:40px;'>
-                                                <i class='icon material-icons'>remove_circle</i>
-                                        </div>
-                                        </a>
-                                </div>
-                             </div>"
+				htmltext += "<div class='col-100 tablet-25'><div class='chip chip-c #{bg}'><form data-remote='true'><button class='col button button-fill' formaction='/orders/#{io.order_id}/order_items/#{io.id}/add_item'>+</button></form><div class='chip-label chip-c-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div><form data-remote='true'><button class='col button button-fill color-pink' formaction='/orders/#{io.order_id}/order_items/#{io.id}/remove_item'>-</button></form></div></div>"
                                 end
                         end
 				render json: {success: true, htmltext: htmltext,item_choosen: "item_#{OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first.id}", amount: helper.number_to_currency(@order.order_items.map{|oi| oi.amount}.sum, :unit => "€") }, status: 200
@@ -83,8 +47,6 @@ class OrderItemsController < ApplicationController
 render json: {error: true}, status: 400
                         end
 		end
-
-
 	end
 
 
@@ -107,27 +69,9 @@ render json: {error: true}, status: 400
                                         bg = ""
                                 end
 				if io.quantity < 0
-				htmltext += "<div class='col-100 tablet-25'>
-				<div class='chip #{bg}' style='margin:0 0 13px 0;padding:0 0 0 12px; background:#ECAD9E;width:100%;'>
-					<div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-				</div>
-			     </div>"
+					htmltext += "<div class='col-100 tablet-25'><div class='chip chip-co #{bg}'><div class='chip-label chip-co-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div></div></div>"
 				else
-				htmltext += "<div class='col-100 tablet-25'>
-				<div class='chip #{bg}' style='margin:0 0 13px 0;padding:0 0 0 12px;width: 100%;'>
-					<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
-					<div class='chip-media bg-color-blue' style='width:40px; height:40px;'>
-						<i class='icon material-icons md-only'>add_circle</i>
-					</div>
-					</a>
-					<div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-					<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
-					<div class='chip-media bg-color-red' style='width:40px; height:40px;'>
-						<i class='icon material-icons'>remove_circle</i>
-					</div>
-					</a>
-				</div>
-			     </div>"
+					htmltext += "<div class='col-100 tablet-25'><div class='chip chip-c #{bg}'><form data-remote='true'><button class='col button button-fill' formaction='/orders/#{io.order_id}/order_items/#{io.id}/add_item'>+</button></form><div class='chip-label chip-c-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div><form data-remote='true'><button class='col button button-fill color-pink' formaction='/orders/#{io.order_id}/order_items/#{io.id}/remove_item'>-</button></form></div></div>"
 			     	end
 			end
 				render json: {success: true, htmltext: htmltext,item_choosen: "item_#{@item_id}", amount: helper.number_to_currency(@order.order_items.map{|oi| oi.amount}.sum, :unit => "€") }, status: 200
@@ -138,38 +82,20 @@ render json: {error: true}, status: 400
 			order_item = OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first
 			if order_item.update_attributes({:quantity => OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first.quantity + 1})
 				@order.order_items.order("line_id desc").each do |io|
-				if io.id == order_item.id
-                                        bg = "bg-color-green"
-                                else
-                                        bg = ""
-                                end
-                                if io.quantity < 0
-                                htmltext += "<div class='col-100 tablet-25'>
-                                <div class='chip #{bg}' style='margin:0 0 13px 0;padding:0 0 0 12px; background:#ECAD9E;width:100%;'>
-                                        <div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-                                </div>
-                             </div>"
-                                else
-                                htmltext += "<div class='col-100 tablet-25'>
-                                <div class='chip #{bg}' style='margin:0 0 13px 0;padding:0 0 0 12px;width: 100%;'>
-                                        <a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
-                                        <div class='chip-media bg-color-blue' style='width:40px; height:40px;'>
-                                                <i class='icon material-icons md-only'>add_circle</i>
-                                        </div>
-                                        </a>
-                                        <div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-                                        <a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
-                                        <div class='chip-media bg-color-red' style='width:40px; height:40px;'>
-                                                <i class='icon material-icons'>remove_circle</i>
-                                        </div>
-                                        </a>
-                                </div>
-                             </div>"
-                                end
-                        end
+					if io.id == order_item.id
+						bg = "bg-color-green"
+					else
+						bg = ""
+					end
+					if io.quantity < 0
+						htmltext += "<div class='col-100 tablet-25'><div class='chip chip-co #{bg}'><div class='chip-label chip-co-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div></div></div>"
+					else
+						htmltext += "<div class='col-100 tablet-25'><div class='chip chip-c #{bg}'><form data-remote='true'><button class='col button button-fill' formaction='/orders/#{io.order_id}/order_items/#{io.id}/add_item'>+</button></form><div class='chip-label chip-c-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div><form data-remote='true'><button class='col button button-fill color-pink' formaction='/orders/#{io.order_id}/order_items/#{io.id}/remove_item'>-</button></form></div></div>"
+					end
+                        	end
                                 render json: {success: true, htmltext: htmltext,item_choosen: "item_#{OrderItem.where("order_id = ? and item_id = ? and quantity > 0",@order_id,@item_id).first.id}", amount: helper.number_to_currency(@order.order_items.map{|oi| oi.amount}.sum, :unit => "€") }, status: 200
                         else
-render json: {error: true}, status: 400
+				render json: {error: true}, status: 400
                         end
 		end
 	end
@@ -191,27 +117,9 @@ render json: {error: true}, status: 400
                            #     end
 			@order.order_items.order("order_items.created_at DESC, order_items.line_id desc").each do |io|
                                         if io.quantity < 0
-                                        htmltext += "<div class='col-100 tablet-25'>
-                                        <div class='chip' style='margin:0 0 13px 0;padding:0 0 0 12px; background:#ECAD9E;width:100%;'>
-                                                <div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-                                        </div>
-                                     </div>"
+						htmltext += "<div class='col-100 tablet-25'><div class='chip chip-co'><div class='chip-label chip-co-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div></div></div>"
                                         else
-                                        htmltext += "<div class='col-100 tablet-25'>
-                                        <div class='chip' style='margin:0 0 13px 0;padding:0 0 0 12px;width: 100%;'>
-                                                <a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
-                                                <div class='chip-media bg-color-blue' style='width:40px; height:40px;'>
-                                                        <i class='icon material-icons md-only'>add_circle</i>
-                                                </div>
-                                                </a>
-                                                <div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-                                                <a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
-                                                <div class='chip-media bg-color-red' style='width:40px; height:40px;'>
-                                                        <i class='icon material-icons'>remove_circle</i>
-                                                </div>
-                                                </a>
-                                        </div>
-                                     </div>"
+						htmltext += "<div class='col-100 tablet-25'><div class='chip chip-c'><form data-remote='true'><button class='col button button-fill' formaction='/orders/#{io.order_id}/order_items/#{io.id}/add_item'>+</button></form><div class='chip-label chip-c-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div><form data-remote='true'><button class='col button button-fill color-pink' formaction='/orders/#{io.order_id}/order_items/#{io.id}/remove_item'>-</button></form></div></div>"
                                         end
                                 end
                                 render json: {success: true, htmltext: htmltext,item_choosen: "item_#{@order_item.id}", amount: helper.number_to_currency(@order.order_items.map{|oi| oi.amount}.sum, :unit => "€") }, status: 200
@@ -236,23 +144,13 @@ render json: {error: true}, status: 400
 					@order_item.destroy #OrderItem.where(order_id: @order_id,item_id: @item_id).first.destroy
 				end
 				@order.order_items.order("order_items.created_at desc, order_items.line_id desc").each do |io|
-						htmltext += "<div class='col-100 tablet-25'>
-						<div class='chip' style='margin:0 0 13px 0;padding:0 0 0 12px;width: 100%;'>
-							<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
-							<div class='chip-media bg-color-blue' style='width:40px; height:40px;'>
-								<i class='icon material-icons md-only'>add_circle</i>
-							</div>
-							</a>
-							<div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-							<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
-							<div class='chip-media bg-color-red' style='width:40px; height:40px;'>
-								<i class='icon material-icons'>remove_circle</i>
-							</div>
-							</a>
-						</div>
-					     </div>"
-					end
-					render json: {success: true, htmltext: htmltext,item_choosen: "item_#{@item.id}", amount: helper.number_to_currency(@order.order_items.map{|oi| oi.amount}.sum, :unit => "€") }, status: 200
+					if io.quantity < 0
+                                                htmltext += "<div class='col-100 tablet-25'><div class='chip chip-co'><div class='chip-label chip-co-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div></div></div>"
+                                        else
+                                                htmltext += "<div class='col-100 tablet-25'><div class='chip chip-c'><form data-remote='true'><button class='col button button-fill' formaction='/orders/#{io.order_id}/order_items/#{io.id}/add_item'>+</button></form><div class='chip-label chip-c-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div><form data-remote='true'><button class='col button button-fill color-pink' formaction='/orders/#{io.order_id}/order_items/#{io.id}/remove_item'>-</button></form></div></div>"
+                                        end
+				end
+				render json: {success: true, htmltext: htmltext,item_choosen: "item_#{@item.id}", amount: helper.number_to_currency(@order.order_items.map{|oi| oi.amount}.sum, :unit => "€") }, status: 200
 			else
 				render json: {error: true}, status: 400
 			end
@@ -268,27 +166,9 @@ render json: {error: true}, status: 400
 					if @order_item_moin.update_attributes({:quantity => @order_item_moin.quantity - 1})
 						@order.order_items.order("order_items.created_at desc, order_items.line_id desc").each do |io|
 							if io.quantity < 0
-							htmltext += "<div class='col-100 tablet-25'>
-							<div class='chip' style='margin:0 0 13px 0;padding:0 0 0 12px; background:#ECAD9E;width:100%;'>
-								<div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-							</div>
-						     </div>"
+								htmltext += "<div class='col-100 tablet-25'><div class='chip chip-co'><div class='chip-label chip-co-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div></div></div>"
 							else
-							htmltext += "<div class='col-100 tablet-25'>
-							<div class='chip' style='margin:0 0 13px 0;padding:0 0 0 12px;width: 100%;'>
-								<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
-								<div class='chip-media bg-color-blue' style='width:40px; height:40px;'>
-									<i class='icon material-icons md-only'>add_circle</i>
-								</div>
-								</a>
-								<div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div>
-								<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
-								<div class='chip-media bg-color-red' style='width:40px; height:40px;'>
-									<i class='icon material-icons'>remove_circle</i>
-								</div>
-								</a>
-							</div>
-						     </div>"
+								htmltext += "<div class='col-100 tablet-25'><div class='chip chip-c'><form data-remote='true'><button class='col button button-fill' formaction='/orders/#{io.order_id}/order_items/#{io.id}/add_item'>+</button></form><div class='chip-label chip-c-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div><form data-remote='true'><button class='col button button-fill color-pink' formaction='/orders/#{io.order_id}/order_items/#{io.id}/remove_item'>-</button></form></div></div>"
 							end
 						end
 						render json: {success: true, htmltext: htmltext,item_choosen: "item_#{@item.id}", amount: helper.number_to_currency(@order.order_items.map{|oi| oi.amount}.sum, :unit => "€") }, status: 200
@@ -302,28 +182,9 @@ render json: {error: true}, status: 400
 				if OrderItem.create({:order_id => @order_id, :item_id => @item_id, :quantity => -1, :amount_v => @amount_v ,:line_id => @order_item.line_id, :created_at => @order_item.created_at})
 					@order.order_items.order("order_items.created_at DESC").each do |io|
 						if io.quantity < 0
-						htmltext += "<div class='col-100 tablet-25'>
-						<div class='chip' style='margin:0 0 13px 0;padding:0 0 0 12px; background:#ECAD9E;width:100%;'>
-							<div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)}<br><span class='badge color-red'> #{io.quantity}</span></div>
-						</div>
-					     </div>"
-						
+							htmltext += "<div class='col-100 tablet-25'><div class='chip chip-co'><div class='chip-label chip-co-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div></div></div>"
 						else
-						htmltext += "<div class='col-100 tablet-25'>
-						<div class='chip' style='margin:0 0 13px 0;padding:0 0 0 12px;width: 100%;'>
-							<a href='/orders/#{io.order_id}/order_items/#{io.id}/add_item' data-remote='true'>
-							<div class='chip-media bg-color-blue' style='width:40px; height:40px;'>
-								<i class='icon material-icons md-only'>add_circle</i>
-							</div>
-							</a>
-							<div class='chip-label' style='width: 100%;'>#{io.item.label} #{io.try(:amount_v)}<br><span class='badge color-red'> #{io.quantity}</span></div>
-							<a href='/orders/#{io.order_id}/order_items/#{io.id}/remove_item' data-remote='true'>
-							<div class='chip-media bg-color-red' style='width:40px; height:40px;'>
-								<i class='icon material-icons'>remove_circle</i>
-							</div>
-							</a>
-						</div>
-					     </div>"
+							htmltext += "<div class='col-100 tablet-25'><div class='chip chip-c'><form data-remote='true'><button class='col button button-fill' formaction='/orders/#{io.order_id}/order_items/#{io.id}/add_item'>+</button></form><div class='chip-label chip-c-l'>#{io.item.label} #{io.try(:amount_v)} <br><span class='badge color-red'> #{io.quantity}</span></div><form data-remote='true'><button class='col button button-fill color-pink' formaction='/orders/#{io.order_id}/order_items/#{io.id}/remove_item'>-</button></form></div></div>"
 						end
 					end
 					render json: {success: true, htmltext: htmltext,item_choosen: "item_#{@item.id}", amount: helper.number_to_currency(@order.order_items.map{|oi| oi.amount}.sum, :unit => "€") }, status: 200

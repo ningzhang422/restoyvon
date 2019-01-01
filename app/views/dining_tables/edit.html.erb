@@ -166,24 +166,16 @@
 			  <% @table.active_order.order_items.order("order_items.created_at desc, order_items.line_id desc").each do |oi| %>
 			  	<% if oi.quantity < 0 %>
 					<div class="col-100 tablet-25" id="item_<%=oi.id%>">
-						<div class="chip" style="margin: 0 0 13px 0;padding:0 0 0 12px; background: #ECAD9E;width:100%;">
-							<div class="chip-label" style="width: 100%;"><%= oi.item.label %> <%=oi.try(:amount_v)%> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
+						<div class="chip chip-co">
+							<div class="chip-label chip-co-l"><%= oi.item.label %> <%=oi.try(:amount_v)%> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
 						</div>
 					</div>
 				<% else %>
 					<div class="col-100 tablet-25" id="item_<%=oi.id%>">
-						<div class="chip" style="margin: 0 0 13px 0;padding:0 0 0 12px;width:100%;">
-							<a href=<%="/orders/#{oi.order_id}/order_items/#{oi.id}/add_item"%> class="item-link item-content" data-remote="true">
-							<div class="chip-media bg-color-blue" style="width:40px; height:40px;">
-								<i class="icon material-icons md-only">add_circle</i>
-							</div>
-							</a>
-							<div class="chip-label" style="width: 100%;"><%= oi.item.label %> <%=oi.try(:amount_v)%> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
-							<a href=<%="/orders/#{oi.order_id}/order_items/#{oi.id}/remove_item"%> class="item-link item-content" data-remote="true">
-							<div class="chip-media bg-color-red" style="width:40px; height:40px;">
-								<i class="icon material-icons">remove_circle</i>
-							</div>
-							</a>
+						<div class="chip chip-c">
+							<form data-remote="true"><button class="col button button-fill" formaction="<%="/orders/#{oi.order_id}/order_items/#{oi.id}/add_item"%>">+</button></form>
+							<div class="chip-label chip-c-l"><%= oi.item.label %> <%=oi.try(:amount_v)%> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
+							<form data-remote="true"><button class="col button button-fill color-pink" formaction="<%="/orders/#{oi.order_id}/order_items/#{oi.id}/remove_item"%>">-</button></form>
 						</div>
 					</div>
 				<% end %>

@@ -524,3 +524,14 @@ span.dialog-button{
         color: #ffffff !important;
 }
 
+.chip-c {
+ margin: 0 0 13px 0;padding:0 !important;width:100%;
+}
+
+.chip-co {
+ margin:0 0 13px 0;padding:0 !important; background:#ECAD9E;width:100%;
+}
+
+.chip-co-l, .chip-c-l {
+ width:100%;
+}
