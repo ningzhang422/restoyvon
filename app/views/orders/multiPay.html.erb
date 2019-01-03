@@ -1,4 +1,3 @@
-<form>
 	<input type="hidden" value="<%=@order.id%>" id="orderId" />
 <div class="data-table">
 			<div class="card">
@@ -9,73 +8,80 @@
 			</div>
 
 			<div class="list no-hairlines-md" style="padding:0;margin:0;">
-			      <ul>
-				<li class="item-content item-input">
+			      <ul class="row">
+				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-<i class="material-icons">
-euro_symbol
-</i>
+					  <button class="col button button-fill" style="line-height:1;"><i class="material-icons">euro_symbol</i></button>
 				  </div>
-				  <div class="item-inner">
+				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
 					    <input type="text" id="cash" placeholder="现金" onfocus="if((this.value == '' && $('#cart').val() == '' && $('#cheque').val() == '' && $('#tkresto').val() == '' && $('#others').val() == '')){}else{this.value = getval()}" onblur="calcul()">
 				    </div>
 				  </div>
 				</li>
-				<li class="item-content item-input">
+				<li class="item-content item-input col-50"  style="padding-left:7px;">
 				  <div class="item-media">
-				    <i class="material-icons">
-credit_card
-</i>
+					  <button class="col button button-fill" style="line-height:1;"><i class="material-icons">credit_card</i></button>
 				  </div>
-				  <div class="item-inner">
+				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
 					    <input type="text" id="cart" placeholder="银行卡" onfocus="if((this.value == '' && $('#cash').val() == '' && $('#cheque').val() == '' && $('#tkresto').val() == '' && $('#others').val() == '')){}else{this.value = getval()}" onblur="calcul()">
 				    </div>
 				  </div>
 				</li>
-				<li class="item-content item-input">
+				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-				  <i class="material-icons">
-picture_in_picture
-</i>
+					  <button class="col button button-fill" style="line-height:1;"><i class="material-icons">picture_in_picture</i></button>
 				  </div>
-				  <div class="item-inner">
+				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
 					    <input type="text" id="cheque" placeholder="支票" onfocus="if((this.value == '' && $('#cart').val() == '' && $('#cash').val() == '' && $('#tkresto').val() == '' && $('#others').val() == '')){}else{this.value = getval()}" onblur="calcul()">
 				    </div>
 				  </div>
 				</li>
-				<li class="item-content item-input">
+				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <i class="material-icons">
-receipt
-</i>
+					  <button class="col button button-fill" style="line-height:1;"><i class="material-icons">receipt</i></button>
 				  </div>
-				  <div class="item-inner">
+				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
 					    <input type="text" id="tkresto" placeholder="饭票" onfocus="if((this.value == '' && $('#cart').val() == '' && $('#cheque').val() == '' && $('#cash').val() == '' && $('#others').val() == '')){}else{this.value = getval()}" onblur="calcul()">
 				    </div>
 				  </div>
 				</li>
-				<li class="item-content item-input">
+				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <i class="material-icons">
-help_outline
-</i>
+					  <button class="col button button-fill" style="line-height:1;"><i class="material-icons">help_outline</i></button>
 				  </div>
-				  <div class="item-inner">
+				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
 					    <input type="text" id="others" placeholder="其他" onfocus="if((this.value == '' && $('#cart').val() == '' && $('#cheque').val() == '' && $('#tkresto').val() == '' && $('#cash').val() == '')){}else{this.value = getval()}" onblur="calcul()">
 				    </div>
 				  </div>
 				</li>
+				<li class="item-content item-input col-50" style="padding-left:7px;">
+                                          <button class="col button button-fill color-green" style="line-height:1;">确定</button>
+                                </li>
 			      </ul>
+
+
+			      <div class="block item-content item-input row" style="margin:5px 0;">
+				  <div class="item-inner col-100" style="padding-right:0px;">
+                                    <div class="item-input-wrap">
+                                            <input type="text" id="keypad_general" placeholder="请输入金额" >
+                                    </div>
+                                  </div>
+			      </div>
 			    </div>
 
-			<div class="block">
+	<!--		<div class="block">
 				<p class="row" id="but_link">
 				</p>
-			</div>
+	</div>-->
 </div>
-</form>
+<!--
+<div class="sheet-modal keypad keypad-sheet keypad-type-numpad keypad_g modal-in" style="display: block;position: absolute; top: calc(100% - 64px) !important;">
+          <div class="sheet-modal-inner keypad-buttons">
+            <span class="keypad-button"><span class="keypad-button-number">1</span></span><span class="keypad-button"><span class="keypad-button-number">2</span></span><span class="keypad-button"><span class="keypad-button-number">3</span></span><span class="keypad-button"><span class="keypad-button-number">4</span></span><span class="keypad-button"><span class="keypad-button-number">5</span></span><span class="keypad-button"><span class="keypad-button-number">6</span></span><span class="keypad-button"><span class="keypad-button-number">7</span></span><span class="keypad-button"><span class="keypad-button-number">8</span></span><span class="keypad-button"><span class="keypad-button-number">9</span></span><span class="keypad-button keypad-button-dark">.</span><span class="keypad-button"><span class="keypad-button-number">0</span></span><span class="keypad-button keypad-button-dark keypad-delete-button"><i class="icon icon-keypad-delete"></i></span>
+          </div>
+</div>-->
