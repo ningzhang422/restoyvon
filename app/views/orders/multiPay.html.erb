@@ -11,56 +11,57 @@
 			      <ul class="row">
 				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;"><i class="material-icons">euro_symbol</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cash').val(($('#keypad_general').val()=='' && $('#cash').val()=='') ? getval() : $('#keypad_general').val());$('#keypad_general').val('');calcul();"><i class="material-icons">euro_symbol</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
-					    <input type="text" id="cash" placeholder="现金" onfocus="if((this.value == '' && $('#cart').val() == '' && $('#cheque').val() == '' && $('#tkresto').val() == '' && $('#others').val() == '')){}else{this.value = getval()}" onblur="calcul()">
+					    <input type="text" id="cash" placeholder="现金" readonly="true">
 				    </div>
 				  </div>
 				</li>
 				<li class="item-content item-input col-50"  style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;"><i class="material-icons">credit_card</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cart').val(($('#keypad_general').val()=='' && $('#cart').val()=='') ? getval() : $('#keypad_general').val());$('#keypad_general').val('');calcul();"><i class="material-icons">credit_card</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
-					    <input type="text" id="cart" placeholder="银行卡" onfocus="if((this.value == '' && $('#cash').val() == '' && $('#cheque').val() == '' && $('#tkresto').val() == '' && $('#others').val() == '')){}else{this.value = getval()}" onblur="calcul()">
+					    <input type="text" id="cart" placeholder="银行卡" readonly="true">
 				    </div>
 				  </div>
 				</li>
 				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;"><i class="material-icons">picture_in_picture</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cheque').val(($('#keypad_general').val()=='' && $('#cheque').val()=='') ? getval() : $('#keypad_general').val());$('#keypad_general').val('');calcul();"><i class="material-icons">picture_in_picture</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
-					    <input type="text" id="cheque" placeholder="支票" onfocus="if((this.value == '' && $('#cart').val() == '' && $('#cash').val() == '' && $('#tkresto').val() == '' && $('#others').val() == '')){}else{this.value = getval()}" onblur="calcul()">
+					    <input type="text" id="cheque" placeholder="支票" readonly="true">
 				    </div>
 				  </div>
 				</li>
 				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;"><i class="material-icons">receipt</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#tkresto').val(($('#keypad_general').val()=='' && $('#tkresto').val()=='') ? getval() : $('#keypad_general').val());$('#keypad_general').val('');calcul();"><i class="material-icons">receipt</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
-					    <input type="text" id="tkresto" placeholder="饭票" onfocus="if((this.value == '' && $('#cart').val() == '' && $('#cheque').val() == '' && $('#cash').val() == '' && $('#others').val() == '')){}else{this.value = getval()}" onblur="calcul()">
+					    <input type="text" id="tkresto" placeholder="饭票" readonly="true">
 				    </div>
 				  </div>
 				</li>
 				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;"><i class="material-icons">help_outline</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#others').val(($('#keypad_general').val()=='' && $('#others').val()=='') ? getval() : $('#keypad_general').val());$('#keypad_general').val('');calcul();"><i class="material-icons">help_outline</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
-					    <input type="text" id="others" placeholder="其他" onfocus="if((this.value == '' && $('#cart').val() == '' && $('#cheque').val() == '' && $('#tkresto').val() == '' && $('#cash').val() == '')){}else{this.value = getval()}" onblur="calcul()">
+					    <input type="text" id="others" placeholder="其他" readonly="true">
 				    </div>
 				  </div>
 				</li>
 				<li class="item-content item-input col-50" style="padding-left:7px;">
-                                          <button class="col button button-fill color-green" style="line-height:1;">确定</button>
+					  <div class="item-media" id="but_link">
+                                	  </div>
                                 </li>
 			      </ul>
 
@@ -68,20 +69,20 @@
 			      <div class="block item-content item-input row" style="margin:5px 0;">
 				  <div class="item-inner col-100" style="padding-right:0px;">
                                     <div class="item-input-wrap">
-                                            <input type="text" id="keypad_general" placeholder="请输入金额" >
+					    <input type="text" id="keypad_general" placeholder="请输入金额" style="text-align:center; font-size:30px;" readonly="true">
                                     </div>
                                   </div>
 			      </div>
 			    </div>
 
-	<!--		<div class="block">
-				<p class="row" id="but_link">
+			<div class="block">
+				<p class="row" id="link">
 				</p>
-	</div>-->
+	</div>
 </div>
-<!--
+
 <div class="sheet-modal keypad keypad-sheet keypad-type-numpad keypad_g modal-in" style="display: block;position: absolute; top: calc(100% - 64px) !important;">
           <div class="sheet-modal-inner keypad-buttons">
             <span class="keypad-button"><span class="keypad-button-number">1</span></span><span class="keypad-button"><span class="keypad-button-number">2</span></span><span class="keypad-button"><span class="keypad-button-number">3</span></span><span class="keypad-button"><span class="keypad-button-number">4</span></span><span class="keypad-button"><span class="keypad-button-number">5</span></span><span class="keypad-button"><span class="keypad-button-number">6</span></span><span class="keypad-button"><span class="keypad-button-number">7</span></span><span class="keypad-button"><span class="keypad-button-number">8</span></span><span class="keypad-button"><span class="keypad-button-number">9</span></span><span class="keypad-button keypad-button-dark">.</span><span class="keypad-button"><span class="keypad-button-number">0</span></span><span class="keypad-button keypad-button-dark keypad-delete-button"><i class="icon icon-keypad-delete"></i></span>
           </div>
-</div>-->
+</div>

@@ -223,7 +223,8 @@ var routes = [
 					
 
 			      if((cash+cart+cheque+tkresto+others) != 0 && amountTotal- (cash+cart+cheque+tkresto+others) <= 0 ){ 
-					$("#but_link").html('<a href="/orders/'+$("#orderId").val()+'/multiPayOk?cash='+cash.toString().replace(".","-")+'&cart='+cart.toString().replace(".","-")+'&cheque='+cheque.toString().replace(".","-")+'&tkresto='+tkresto.toString().replace(".","-")+'&others='+others.toString().replace(".","-")+'" class="col button button-big button-fill">确定</a>');
+					$("#but_link").html('<a href="/orders/'+$("#orderId").val()+'/multiPayOk?cash='+cash.toString().replace(".",",")+'&cart='+cart.toString().replace(".",",")+'&cheque='+cheque.toString().replace(".",",")+'&tkresto='+tkresto.toString().replace(".",",")+'&others='+others.toString().replace(".",",")+'" class="col button button-fill color-green">确定</a>');
+				        //$("#but_link").html('<form data-remote="true"><button formaction="/orders/'+$("#orderId").val()+'/multiPayOk?cash='+cash.toString().replace(".","-")+'&cart='+cart.toString().replace(".","-")+'&cheque='+cheque.toString().replace(".","-")+'&tkresto='+tkresto.toString().replace(".","-")+'&others='+others.toString().replace(".","-")+'" class="col button button-fill color-green" style="line-height:1;">确定</button></form>');
 				}else{
 					$("#but_link").html("");
 				}
@@ -233,9 +234,20 @@ var routes = [
                         }).open();*/
 			app.popup.create(
                           {
-			    content: "<div class='popup'><div class='page'><div class='navbar'><div class='navbar-inner'><div class='title'>多方式支付</div><div class='right'><a href='#' class='link popup-close'>Close</a></div></div></div><div class='page-content'><div class='block'>"+response+"</div></div></div></div>"
+				  content: "<div class='popup'><div class='page'><div class='navbar'><div class='navbar-inner'><div class='title'>多方式支付</div><div class='right'><a href='#' class='link popup-close'>Close</a></div></div></div><div class='page-content'><div class='block'>"+response+"</div></div></div></div>"
 			  }).open();
-			
+			$("#keypad_general").focus();
+			$(".keypad-button").on('click',function(){
+				if($(this).html() == '.'){
+					$("#keypad_general").val($("#keypad_general").val()+$(this).html());
+				}else if($(this).hasClass('keypad-delete-button')){
+					$("#keypad_general").val($("#keypad_general").val().slice(0, -1));
+				}else{
+					$("#keypad_general").val($("#keypad_general").val()+$(this).find(".keypad-button-number").html());
+				}
+					$("#keypad_general").focus();
+			});
+		/*	
 			var keypad_general = app.keypad.create({
                               inputEl: '#keypad_general',
                                 buttons: [
@@ -292,7 +304,7 @@ var routes = [
                                 ],
 				cssClass: "keypad_g",
 				toolbar: false
-                            }).open();
+                            }).open();*/
                 },
                 error: function(){
                   console.log("error");
