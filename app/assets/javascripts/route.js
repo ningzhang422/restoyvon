@@ -195,11 +195,6 @@ var routes = [
                   }
                 },
                 complete: function() {
-/*			app.toast.create({
-                                                text: '操作完成',
-                                                position: 'top',
-                                                closeTimeout: 2000,
-                                        }).open();*/
                 },
                 success: function(response) {
 			getval = function() {
@@ -224,87 +219,45 @@ var routes = [
 
 			      if((cash+cart+cheque+tkresto+others) != 0 && amountTotal- (cash+cart+cheque+tkresto+others) <= 0 ){ 
 					$("#but_link").html('<a href="/orders/'+$("#orderId").val()+'/multiPayOk?cash='+cash.toString().replace(".",",")+'&cart='+cart.toString().replace(".",",")+'&cheque='+cheque.toString().replace(".",",")+'&tkresto='+tkresto.toString().replace(".",",")+'&others='+others.toString().replace(".",",")+'" class="col button button-fill color-green">确定</a>');
-				        //$("#but_link").html('<form data-remote="true"><button formaction="/orders/'+$("#orderId").val()+'/multiPayOk?cash='+cash.toString().replace(".","-")+'&cart='+cart.toString().replace(".","-")+'&cheque='+cheque.toString().replace(".","-")+'&tkresto='+tkresto.toString().replace(".","-")+'&others='+others.toString().replace(".","-")+'" class="col button button-fill color-green" style="line-height:1;">确定</button></form>');
 				}else{
 					$("#but_link").html("");
 				}
 			    };
-			/*app.popup.create({
-                                content: '<div class="sheet-modal" id="mysheet"><div class="toolbar"><div class="toolbar-inner justify-content-flex-end"><a href="#" class="link sheet-close">Close</a></div></div><div class="sheet-modal-inner"><div class="page-content"><div class="block" style="margin: -30px 0 0 0;">'+response+'</div></div></div></div>'
-                        }).open();*/
+			get_bon_value = function(t){
+				     var v = "";
+				     var is_add = false;
+				     if(t.includes("+")){
+					 is_add = true;
+					 t = t.replace('+','')
+				     }
+					 if(t.length == 1) {
+					     v = "0.0"+t;
+					 }else{
+					     		v = [(t.slice(0, t.length-2) == 0 ? 0 : parseInt(t.slice(0, t.length-2).replace('.',''))), '.', t.slice(t.length-2).replace('.','')].join('');
+					 }
+				     if(is_add){
+					 return v+"+";
+				     }else{
+					 return parseFloat(v) == 0 ? '' : v;
+				     }
+			};
 			app.popup.create(
                           {
 				  content: "<div class='popup'><div class='page'><div class='navbar'><div class='navbar-inner'><div class='title'>多方式支付</div><div class='right'><a href='#' class='link popup-close'>Close</a></div></div></div><div class='page-content'><div class='block'>"+response+"</div></div></div></div>"
 			  }).open();
 			$("#keypad_general").focus();
 			$(".keypad-button").on('click',function(){
-				if($(this).html() == '.'){
+				if($(this).html() == '+'){
 					$("#keypad_general").val($("#keypad_general").val()+$(this).html());
 				}else if($(this).hasClass('keypad-delete-button')){
 					$("#keypad_general").val($("#keypad_general").val().slice(0, -1));
 				}else{
 					$("#keypad_general").val($("#keypad_general").val()+$(this).find(".keypad-button-number").html());
 				}
-					$("#keypad_general").focus();
+				$("#keypad_general").val(get_bon_value($("#keypad_general").val()));
+
+				$("#keypad_general").focus();
 			});
-		/*	
-			var keypad_general = app.keypad.create({
-                              inputEl: '#keypad_general',
-                                buttons: [
-                                        {
-              html: '<span class="keypad-button-number">1</span>',
-              value: 1,
-            },
-            {
-              html: '<span class="keypad-button-number">2</span>',
-              value: 2,
-            },
-            {
-              html: '<span class="keypad-button-number">3</span>',
-              value: 3,
-            },
-            {
-              html: '<span class="keypad-button-number">4</span>',
-              value: 4,
-            },
-            {
-              html: '<span class="keypad-button-number">5</span>',
-              value: 5,
-            },
-            {
-              html: '<span class="keypad-button-number">6</span>',
-              value: 6,
-            },
-            {
-              html: '<span class="keypad-button-number">7</span>',
-              value: 7,
-            },
-            {
-              html: '<span class="keypad-button-number">8</span>',
-              value: 8,
-            },
-            {
-              html: '<span class="keypad-button-number">9</span>',
-              value: 9,
-            },
-            {
-              html: '.',
-              value: '.',
-              dark: true,
-            },
-            {
-              html: '<span class="keypad-button-number">0</span>',
-              value: 0,
-            },
-            {
-              html: '<i class="icon icon-keypad-delete"></i>',
-              cssClass: 'keypad-delete-button',
-              dark: true,
-            }
-                                ],
-				cssClass: "keypad_g",
-				toolbar: false
-                            }).open();*/
                 },
                 error: function(){
                   console.log("error");

@@ -11,7 +11,7 @@
 			      <ul class="row">
 				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cash').val(($('#keypad_general').val()=='' && $('#cash').val()=='') ? getval() : $('#keypad_general').val());$('#keypad_general').val('');calcul();"><i class="material-icons">euro_symbol</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cash').val(($('#keypad_general').val()=='' && $('#cash').val()=='') ? getval() : ($('#keypad_general').val().endsWith('+') ? ($('#cash').val() == '' ? 0 : parseFloat($('#cash').val())) + parseFloat($('#keypad_general').val().replace('+','')) : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">euro_symbol</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
@@ -21,7 +21,7 @@
 				</li>
 				<li class="item-content item-input col-50"  style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cart').val(($('#keypad_general').val()=='' && $('#cart').val()=='') ? getval() : $('#keypad_general').val());$('#keypad_general').val('');calcul();"><i class="material-icons">credit_card</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cart').val(($('#keypad_general').val()=='' && $('#cart').val()=='') ? getval() : $('#keypad_general').val().endsWith('+') ? ($('#cart').val() == '' ? 0 : parseFloat($('#cart').val())) + parseFloat($('#keypad_general').val().replace('+','')) : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">credit_card</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
@@ -31,7 +31,7 @@
 				</li>
 				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cheque').val(($('#keypad_general').val()=='' && $('#cheque').val()=='') ? getval() : $('#keypad_general').val());$('#keypad_general').val('');calcul();"><i class="material-icons">picture_in_picture</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cheque').val(($('#keypad_general').val()=='' && $('#cheque').val()=='') ? getval() : $('#keypad_general').val().endsWith('+') ? ($('#cheque').val() == '' ? 0 : parseFloat($('#cheque').val())) + parseFloat($('#keypad_general').val().replace('+','')) : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">picture_in_picture</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
@@ -41,7 +41,7 @@
 				</li>
 				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;" onclick="$('#tkresto').val(($('#keypad_general').val()=='' && $('#tkresto').val()=='') ? getval() : $('#keypad_general').val());$('#keypad_general').val('');calcul();"><i class="material-icons">receipt</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#tkresto').val(($('#keypad_general').val()=='' && $('#tkresto').val()=='') ? getval() : $('#keypad_general').val().endsWith('+') ? ($('#tkresto').val() == '' ? 0 : parseFloat($('#tkresto').val())) + parseFloat($('#keypad_general').val().replace('+','')) : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">receipt</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
@@ -51,7 +51,7 @@
 				</li>
 				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;" onclick="$('#others').val(($('#keypad_general').val()=='' && $('#others').val()=='') ? getval() : $('#keypad_general').val());$('#keypad_general').val('');calcul();"><i class="material-icons">help_outline</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#others').val(($('#keypad_general').val()=='' && $('#others').val()=='') ? getval() : $('#keypad_general').val().endsWith('+') ? ($('#others').val() == '' ? 0 : parseFloat($('#others').val())) + parseFloat($('#keypad_general').val().replace('+','')) : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">help_outline</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
@@ -83,6 +83,6 @@
 
 <div class="sheet-modal keypad keypad-sheet keypad-type-numpad keypad_g modal-in" style="display: block;position: absolute; top: calc(100% - 64px) !important;">
           <div class="sheet-modal-inner keypad-buttons">
-            <span class="keypad-button"><span class="keypad-button-number">1</span></span><span class="keypad-button"><span class="keypad-button-number">2</span></span><span class="keypad-button"><span class="keypad-button-number">3</span></span><span class="keypad-button"><span class="keypad-button-number">4</span></span><span class="keypad-button"><span class="keypad-button-number">5</span></span><span class="keypad-button"><span class="keypad-button-number">6</span></span><span class="keypad-button"><span class="keypad-button-number">7</span></span><span class="keypad-button"><span class="keypad-button-number">8</span></span><span class="keypad-button"><span class="keypad-button-number">9</span></span><span class="keypad-button keypad-button-dark">.</span><span class="keypad-button"><span class="keypad-button-number">0</span></span><span class="keypad-button keypad-button-dark keypad-delete-button"><i class="icon icon-keypad-delete"></i></span>
+            <span class="keypad-button"><span class="keypad-button-number">1</span></span><span class="keypad-button"><span class="keypad-button-number">2</span></span><span class="keypad-button"><span class="keypad-button-number">3</span></span><span class="keypad-button"><span class="keypad-button-number">4</span></span><span class="keypad-button"><span class="keypad-button-number">5</span></span><span class="keypad-button"><span class="keypad-button-number">6</span></span><span class="keypad-button"><span class="keypad-button-number">7</span></span><span class="keypad-button"><span class="keypad-button-number">8</span></span><span class="keypad-button"><span class="keypad-button-number">9</span></span><span class="keypad-button keypad-button-dark">+</span><span class="keypad-button"><span class="keypad-button-number">0</span></span><span class="keypad-button keypad-button-dark keypad-delete-button"><i class="icon icon-keypad-delete"></i></span>
           </div>
 </div>
