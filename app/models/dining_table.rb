@@ -1,5 +1,6 @@
 class DiningTable < ApplicationRecord
 	has_many :orders
+	belongs_to :user
 
 	validate :verif_table_name, on: [:create, :update]
 	#validate :verif_table_name, on: :update

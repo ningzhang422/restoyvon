@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
 
   def new
-	  dining_table = DiningTable.new({name_of: "#{params[:dining_table_id]}",current_order_id: nil})
+	  dining_table = DiningTable.new({name_of: "#{params[:dining_table_id]}",current_order_id: nil, user_id: current_user.id})
 	  if dining_table.save 
 		  order =  Order.new({dining_table_id: dining_table.id, quantity: params[:id]})
 		  if order.save

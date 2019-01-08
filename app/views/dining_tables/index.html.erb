@@ -34,9 +34,9 @@
 						<li class="actions-button actions-button-text" style="height:auto; float:left;">
 							<div class="actions-button-media" style="width:auto;">
 								<% if dt.active_order.encour %>
-									<a href="<%=order_path(dt.current_order_id)%>" class="item-content item-link" style="padding:0;"><img src="/assets/keman.jpg" width="90"></a>
+									<a href="<%=order_path(dt.current_order_id)%>" class="item-content item-link" style="padding:0;"><img src="/assets/keman.png" width="87" style="background-color:<%=dt.user.color%>"></a>
 								<% else %>
-									<a href="<%=edit_dining_table_path(dt)%>" class="item-content item-link" style="padding:0;"><img src="/assets/keman.jpg" width="90"></a>
+									<a href="<%=edit_dining_table_path(dt)%>" class="item-content item-link" style="padding:0;"><img src="/assets/keman.png" width="87" style="background-color:<%=dt.user.color%>"></a>
 								<% end %>
 							</div>
 							<% if dt.active_order.encour %>
