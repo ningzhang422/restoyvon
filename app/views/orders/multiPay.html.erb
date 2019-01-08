@@ -11,7 +11,7 @@
 			      <ul class="row">
 				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cash').val(($('#keypad_general').val()=='' && $('#cash').val()=='') ? getval() : ($('#keypad_general').val().endsWith('+') ? ($('#cash').val() == '' ? 0 : parseFloat($('#cash').val())) + parseFloat($('#keypad_general').val().replace('+','')) : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">euro_symbol</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cash').val(($('#keypad_general').val()=='' && $('#cash').val()=='') ? getval() : ($('#keypad_general').val().endsWith('+') ? Math.round((($('#cash').val() == '' ? 0 : parseFloat($('#cash').val())) + parseFloat($('#keypad_general').val().replace('+','')))*100)/100 : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">euro_symbol</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
@@ -21,7 +21,7 @@
 				</li>
 				<li class="item-content item-input col-50"  style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cart').val(($('#keypad_general').val()=='' && $('#cart').val()=='') ? getval() : ($('#keypad_general').val().endsWith('+') ? ($('#cart').val() == '' ? 0 : parseFloat($('#cart').val())) + parseFloat($('#keypad_general').val().replace('+','')) : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">credit_card</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cart').val(($('#keypad_general').val()=='' && $('#cart').val()=='') ? getval() : ($('#keypad_general').val().endsWith('+') ? Math.round((($('#cart').val() == '' ? 0 : parseFloat($('#cart').val())) + parseFloat($('#keypad_general').val().replace('+','')))*100)/100 : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">credit_card</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
@@ -31,7 +31,7 @@
 				</li>
 				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cheque').val(($('#keypad_general').val()=='' && $('#cheque').val()=='') ? getval() : ($('#keypad_general').val().endsWith('+') ? ($('#cheque').val() == '' ? 0 : parseFloat($('#cheque').val())) + parseFloat($('#keypad_general').val().replace('+','')) : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">picture_in_picture</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#cheque').val(($('#keypad_general').val()=='' && $('#cheque').val()=='') ? getval() : ($('#keypad_general').val().endsWith('+') ? Math.round((($('#cheque').val() == '' ? 0 : parseFloat($('#cheque').val())) + parseFloat($('#keypad_general').val().replace('+','')))*100)/100 : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">picture_in_picture</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
@@ -41,7 +41,7 @@
 				</li>
 				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;" onclick="$('#tkresto').val(($('#keypad_general').val()=='' && $('#tkresto').val()=='') ? getval() : ($('#keypad_general').val().endsWith('+') ? ($('#tkresto').val() == '' ? 0 : parseFloat($('#tkresto').val())) + parseFloat($('#keypad_general').val().replace('+','')) : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">receipt</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#tkresto').val(($('#keypad_general').val()=='' && $('#tkresto').val()=='') ? getval() : ($('#keypad_general').val().endsWith('+') ? Math.round((($('#tkresto').val() == '' ? 0 : parseFloat($('#tkresto').val())) + parseFloat($('#keypad_general').val().replace('+','')))*100)/100 : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">receipt</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
@@ -51,7 +51,7 @@
 				</li>
 				<li class="item-content item-input col-50" style="padding-left:7px;">
 				  <div class="item-media">
-					  <button class="col button button-fill" style="line-height:1;" onclick="$('#others').val(($('#keypad_general').val()=='' && $('#others').val()=='') ? getval() : ($('#keypad_general').val().endsWith('+') ? ($('#others').val() == '' ? 0 : parseFloat($('#others').val())) + parseFloat($('#keypad_general').val().replace('+','')) : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">help_outline</i></button>
+					  <button class="col button button-fill" style="line-height:1;" onclick="$('#others').val(($('#keypad_general').val()=='' && $('#others').val()=='') ? getval() : ($('#keypad_general').val().endsWith('+') ? Math.round((($('#others').val() == '' ? 0 : parseFloat($('#others').val())) + parseFloat($('#keypad_general').val().replace('+','')))*100)/100 : $('#keypad_general').val()));$('#keypad_general').val('');calcul();"><i class="material-icons">help_outline</i></button>
 				  </div>
 				  <div class="item-inner" style="padding-right:0px;">
 				    <div class="item-input-wrap">
