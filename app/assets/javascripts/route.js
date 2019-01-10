@@ -30,6 +30,7 @@ var routes = [
           path: '/orders/:id/valid',
           async: function(routeto, routefrom, resolve, reject) {
 		if(routeto.query.promotion_id != null){
+			if(routeto.query.promotion_id != 0){
 		  app.dialog.confirm("<b>您确定要使用折扣快捷键吗？</b>",function(){
 		    app.request(
 		      {
@@ -59,6 +60,39 @@ var routes = [
 			}
 		      }
 		    )});}else{
+		    
+		    app.dialog.confirm("<b>您确定要取消折扣吗？</b>",function(){
+                    app.request(
+                      {
+                        url: routeto.url,
+                        method: 'GET',
+                        crossDomain: false,
+                        statusCode: {
+                          404: function(xhr) {
+                          }
+                        },
+                        complete: function() {
+                        },
+                        success: function(response) {
+                                resolve(
+                                  // How and what to load: template
+                                        {
+                                                template: '{{res}}'
+                                        },
+                                  // Custom template context
+                                        {
+                                                context: {
+                                                        res: response,
+                                                },
+                                        });
+                        },
+                        error: function(){
+                        }
+                      }
+                    )});
+		    }
+		
+		}else{
 		    
 		    app.request(
                       {
@@ -160,7 +194,9 @@ var routes = [
                                 });
 				app.popup.close();
 					$('.page-current').html('<br><br><div class="card"><div class="card-content card-content-padding"><center><b style="font-size: 20px; color: #cc0000;">此单已经支付</b><br><a href="#" class="button button-big button-raised" onclick="zhang.callCameraScan()">扫码</a></center><br><a href="#" class="button button-big button-raised" onclick="app.router.navigate(\'/dining_tables\', {reloadCurrent:true, ignoreCache:true});">大厅</a></div></div>');
-                                lee.printWithoutQR(response.split('|')[0],response.split('|')[1]);
+				if(!response.split('|')[0].includes("CB : 0")){
+                                	lee.printWithoutQR(response.split('|')[0],response.split('|')[1]);
+				}
                                 zhang.callCameraScan();
 			}else{
 			app.toast.create({

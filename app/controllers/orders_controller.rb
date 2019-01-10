@@ -130,11 +130,17 @@ class OrdersController < ApplicationController
   def valid
 	  @order = Order.find(params[:id])
 	  unless params[:promotion_id].blank?
-		  p = Promotion.find(params[:promotion_id].to_i)
-		  @order.order_items.each do |oi|
-			if  p.items.map(&:id).include?(oi.item_id)
-				oi.update_attributes({:rate => p.rate})
-			end
+		  if params[:promotion_id] == "0"
+			  @order.order_items.each do |oi|
+				  oi.update_attributes({:rate => nil})
+			  end
+		  else
+			  p = Promotion.find(params[:promotion_id].to_i)
+			  @order.order_items.each do |oi|
+				if  p.items.map(&:id).include?(oi.item_id)
+					oi.update_attributes({:rate => p.rate})
+				end
+			  end
 		  end
 
 		  last_order_history = @order.order_histories.order(:created_at).try(:last)

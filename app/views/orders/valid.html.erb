@@ -19,8 +19,12 @@
 				</div>
 			</div>
   			<div class="card row">
-                                                <% Promotion.all.each do |p| %>
-							<a href="/orders/<%=@order.id%>/valid?uniqId=<%=@order.uniqId%>&promotion_id=<%=p.id%>" class="col button button-outline <%=@order.order_items.select{|oi| !oi.rate.blank?}.size > 0 ? "disabled" : "" %>"><%=p.short_label%></a>
+						<% Promotion.all.each do |p| %>
+							<% if @order.order_items.select{|oi| !oi.rate.blank?}.size > 0 %>
+								<a href="/orders/<%=@order.id%>/valid?uniqId=<%=@order.uniqId%>&promotion_id=0" class="col button button-outline">取消 <%=p.short_label%></a>
+							<%  else %>
+								<a href="/orders/<%=@order.id%>/valid?uniqId=<%=@order.uniqId%>&promotion_id=<%=p.id%>" class="col button button-outline"><%=p.short_label%></a>
+							<% end %>
                                                 <% end %>
   			</div>
 			<table>

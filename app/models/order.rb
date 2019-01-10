@@ -42,19 +42,19 @@ class Order < ApplicationRecord
 	end
 
 	def self.orders_today_cash_multi
-		self.orders_today.where("payment_type = 'multiPay'").map(&:comments).map{|m| eval(m)['cash'].gsub('-','.').to_f}.sum
+		self.orders_today.where("payment_type = 'multiPay'").map(&:comments).map{|m| eval(m)['cash'].gsub(',','.').to_f}.sum
 	end
 
 	def self.orders_today_cart_multi
-                self.orders_today.where("payment_type = 'multiPay'").map(&:comments).map{|m| eval(m)['cart'].gsub('-','.').to_f}.sum
+                self.orders_today.where("payment_type = 'multiPay'").map(&:comments).map{|m| eval(m)['cart'].gsub(',','.').to_f}.sum
         end
 
 	def self.orders_today_ticket_multi
-                self.orders_today.where("payment_type = 'multiPay'").map(&:comments).map{|m| eval(m)['tkresto'].gsub('-','.').to_f}.sum
+                self.orders_today.where("payment_type = 'multiPay'").map(&:comments).map{|m| eval(m)['tkresto'].gsub(',','.').to_f}.sum
         end
 
 	def self.orders_today_cheque_multi
-                self.orders_today.where("payment_type = 'multiPay'").map(&:comments).map{|m| eval(m)['cheque'].gsub('-','.').to_f}.sum
+                self.orders_today.where("payment_type = 'multiPay'").map(&:comments).map{|m| eval(m)['cheque'].gsub(',','.').to_f}.sum
         end
 
 end

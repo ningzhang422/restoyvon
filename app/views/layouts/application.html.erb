@@ -83,20 +83,14 @@ receipt
 				<% if session[:show_total] %>
                                 <li class="item-content item-input">
                                   <div class="item-media">
-                                          <i class="material-icons">
-help_outline
-					  </i>
 
-					  &nbsp;&nbsp; 金额 : <%= number_to_currency(Order.orders_today_encour.map{|l| l.try(:last_trace)}.map{|a| a.try(:amount)}.map(&:to_f).sum, :unit => "€") %>/<%= number_to_currency(Order.orders_today_all_amount, :unit => "€") %>
+					  <%= number_to_currency(Order.orders_today_encour.map{|l| l.try(:last_trace)}.map{|a| a.try(:amount)}.map(&:to_f).sum, :unit => "€") %>/<%= number_to_currency(Order.orders_today_all_amount, :unit => "€") %>
                                   </div>
 				</li>
 			<% end %>
 				<% if session[:show_total_people] %>
                                 <li class="item-content item-input">
                                   <div class="item-media">
-                                          <i class="material-icons">
-help_outline
-					  </i>
 					  &nbsp;&nbsp; 人数 : <%= Order.orders_today_encour.map(&:quantity).sum %>/<%= Order.orders_today_all_people %>
                                   </div>
                                 </li>
