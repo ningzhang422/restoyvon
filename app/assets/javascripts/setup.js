@@ -74,8 +74,8 @@ var app = new Framework7({
     // set default title for all dialog shortcuts
     title: '系统信息',
     // change default "OK" button text
-    buttonOk: '确定',
-    buttonCancel: '取消'
+    buttonOk: 'OK',
+    buttonCancel: 'Annuler'
   },
 });
 //app.statusbar.show();

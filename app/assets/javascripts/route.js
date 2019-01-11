@@ -254,7 +254,7 @@ var routes = [
 					
 
 			      if((cash+cart+cheque+tkresto+others) != 0 && amountTotal- (cash+cart+cheque+tkresto+others) <= 0 ){ 
-					$("#but_link").html('<a href="/orders/'+$("#orderId").val()+'/multiPayOk?cash='+cash.toString().replace(".",",")+'&cart='+cart.toString().replace(".",",")+'&cheque='+cheque.toString().replace(".",",")+'&tkresto='+tkresto.toString().replace(".",",")+'&others='+others.toString().replace(".",",")+'" class="col button button-fill color-green">确定</a>');
+					$("#but_link").html('<a href="/orders/'+$("#orderId").val()+'/multiPayOk?cash='+cash.toString().replace(".",",")+'&cart='+cart.toString().replace(".",",")+'&cheque='+cheque.toString().replace(".",",")+'&tkresto='+tkresto.toString().replace(".",",")+'&others='+others.toString().replace(".",",")+'" class="col button button-fill color-green">OK</a>');
 				}else{
 					$("#but_link").html("");
 				}
@@ -712,7 +712,7 @@ $("#searchbar").on('focus',function(){
 
 			getLink = function() {
 			      if ($("#chooseNameTable").val() != "" && $("#chooseNbPeople").val() != ""){
-					$("#but_link").html('<a href="/dining_tables/'+$("#chooseNameTable").val()+'/orders/'+$("#chooseNbPeople").val()+'/new" class="col button button-big button-fill">确定</a>');
+					$("#but_link").html('<a href="/dining_tables/'+$("#chooseNameTable").val()+'/orders/'+$("#chooseNbPeople").val()+'/new" class="col button button-big button-fill">OK</a>');
 				}else{
 					$("#but_link").html("");
 				}
