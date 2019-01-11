@@ -188,11 +188,11 @@
 
   <div class="toolbar tabbar-labels toolbar-bottom-md">
       <div class="toolbar-inner">
-        <a href="<%=order_path(@table.active_order.id)%>" class="link">
-		OK
-        </a>
         <a href="<%=finish_order_path(@table.active_order.id)%>" class="link">
          	Annuler
+        </a>
+        <a href="<%=order_path(@table.active_order.id)%>" class="link">
+		OK
         </a>
       </div>
     </div>
