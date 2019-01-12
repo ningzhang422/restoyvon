@@ -53,13 +53,13 @@
 
 		<div class="block">
 			<p class="row">
-				<a href="<%=cash_order_path(@order.id)%>" class="col button button-big button-fill color-green open-confirm">现金</a>
-				<a href="<%=cart_order_path(@order.id)%>" class="col button button-big button-fill color-red open-confirm">刷卡</a>
-				<a href="<%=ticket_order_path(@order.id)%>" class="col button button-big button-fill color-blue open-confirm">饭票(c.v)</a>
+			<a href="<%=cash_order_path(@order.id)%>" class="col button button-big button-fill color-green open-confirm"><button  label="Press Me" name="so_link" >现金</button></a>
+			<a href="<%=cart_order_path(@order.id)%>" class="col button button-big button-fill color-red open-confirm"><button  label="Press Me" name="so_link" >刷卡</button></a>
+			<a href="<%=ticket_order_path(@order.id)%>" class="col button button-big button-fill color-blue open-confirm"><button  label="Press Me" name="so_link" >饭票(c.v)</button></a>
 			</p>
 			<p class="row">
-				<a href="<%=cheque_order_path(@order.id)%>" class="col button button-big button-fill color-blue open-confirm">支票</a>
-                                <a href="<%=multiPay_order_path(@order.id)%>" class="col button button-big button-fill color-blue open-confirm">多方式支付</a>
+			<a href="<%=cheque_order_path(@order.id)%>" class="col button button-big button-fill color-blue open-confirm"><button  label="Press Me" name="so_link" >支票</button></a>
+			<a href="<%=multiPay_order_path(@order.id)%>" class="col button button-big button-fill color-blue open-confirm"><button  label="Press Me" name="so_link" >多方式支付</button></a>
                         </p>
 		</div>
 	<% end %>

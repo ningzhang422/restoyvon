@@ -69,6 +69,8 @@ class OrdersController < ApplicationController
 	last_order_history = @order.order_histories.order(:created_at).try(:last)
 	last_order_history.uniqId = uniqId
 	last_order_history.printable = last_order_history.printable + 1
+	last_order_history.amount = @order.order_items.map(&:amount).sum
+	last_order_history.detail = @order.order_items.map(&:detail).join(";")
 	last_order_history.save
     end
 
