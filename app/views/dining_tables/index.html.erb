@@ -36,13 +36,17 @@
 								<% if dt.active_order.encour %>
 									<a href="<%=order_path(dt.current_order_id)%>" class="item-content item-link" style="padding:0;"><img src="/assets/keman.png" width="87" style="background-color:<%=dt.user.color%>"></a>
 								<% else %>
-									<a href="<%=edit_dining_table_path(dt)%>" class="item-content item-link" style="padding:0;"><img src="/assets/keman.png" width="87" style="background-color:<%=dt.user.color%>"></a>
+									<% if dt.user.id == current_user.id %>
+										<a href="<%=edit_dining_table_path(dt)%>" class="item-content item-link" style="padding:0;"><img src="/assets/keman.png" width="87" style="background-color:<%=dt.user.color%>"></a>
+									<% end %>
 								<% end %>
 							</div>
 							<% if dt.active_order.encour %>
 								<%= link_to raw("<div class='item-inner' style='padding:none;'><div class='item-title'>#{dt.name_of}</div></div>"), order_path(dt.current_order_id), {class: "item-content item-link", style: "background;none"}  %>
 							<% else %>
-								<%= link_to raw("<div class='item-inner' style='padding:none;'><div class='item-title'>#{dt.name_of}</div></div>"), edit_dining_table_path(dt), {class: "item-content item-link", style: "background;none"}  %>
+								<% if dt.user.id == current_user.id %>
+									<%= link_to raw("<div class='item-inner' style='padding:none;'><div class='item-title'>#{dt.name_of}</div></div>"), edit_dining_table_path(dt), {class: "item-content item-link", style: "background;none"}  %>
+								<% end %>
 							<% end %>
 						</li>
 			  <% end %>
