@@ -165,11 +165,6 @@
 		  <% unless @table.active_order.blank? %>
 			  <% @table.active_order.order_items.order("order_items.created_at desc, order_items.line_id desc").each do |oi| %>
 			  	<% if oi.quantity < 0 %>
-					<div class="col-100 tablet-25" id="item_<%=oi.id%>">
-						<div class="chip chip-co">
-							<div class="chip-label chip-co-l"><%= oi.item.label %> <%=oi.try(:amount_v)%> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
-						</div>
-					</div>
 				<% else %>
 					<div class="col-100 tablet-25" id="item_<%=oi.id%>">
 						<div class="chip chip-c">
@@ -181,6 +176,17 @@
 				<% end %>
 			  <% end %>
 		  <% end %>
+		  <% unless @table.active_order.blank? %>
+                          <% @table.active_order.order_items.order("order_items.created_at desc, order_items.line_id desc").each do |oi| %>
+                                <% if oi.quantity < 0 %>
+                                        <div class="col-100 tablet-25" id="item_<%=oi.id%>">
+                                                <div class="chip chip-co">
+                                                        <div class="chip-label chip-co-l"><%= oi.item.label %> <%=oi.try(:amount_v)%> <br> <span class="badge color-red"><%= oi.quantity %></span></div>
+                                                </div>
+                                        </div>
+                                <% end %>
+                          <% end %>
+                  <% end %>
 	  </div>
 	  </div>
   </div>
